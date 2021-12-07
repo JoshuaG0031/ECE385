@@ -1,0 +1,5 @@
+module abs(
+		input [9:0] dina,
+		input [9:0] dina,
+		input [9:0] dina,
+	);
