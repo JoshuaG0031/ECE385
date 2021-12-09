@@ -54,7 +54,7 @@ module lab8( input               CLOCK_50,
              );
     
     logic Reset_h, Clk;
-    logic [15:0] keycode;
+    logic [47:0] keycode;
 	 logic [9:0] DrawX,DrawY;
 	 logic is_ball;
 	 logic [7:0] led;
@@ -104,7 +104,9 @@ module lab8( input               CLOCK_50,
                              .sdram_wire_ras_n(DRAM_RAS_N),
                              .sdram_wire_we_n(DRAM_WE_N), 
                              .sdram_clk_clk(DRAM_CLK),
-                             .keycode_export(keycode),  
+                             .keycode1_export(keycode[15:0]), 
+									  .keycode2_export(keycode[31:16]),
+									  .keycode3_export(keycode[47:32]), 
                              .otg_hpi_address_export(hpi_addr),
                              .otg_hpi_data_in_port(hpi_data_in),
                              .otg_hpi_data_out_port(hpi_data_out),

@@ -1,6 +1,8 @@
 	lab8_soc u0 (
 		.clk_clk                (<connected-to-clk_clk>),                //             clk.clk
-		.keycode_export         (<connected-to-keycode_export>),         //         keycode.export
+		.keycode1_export        (<connected-to-keycode1_export>),        //        keycode1.export
+		.keycode2_export        (<connected-to-keycode2_export>),        //        keycode2.export
+		.keycode3_export        (<connected-to-keycode3_export>),        //        keycode3.export
 		.otg_hpi_address_export (<connected-to-otg_hpi_address_export>), // otg_hpi_address.export
 		.otg_hpi_cs_export      (<connected-to-otg_hpi_cs_export>),      //      otg_hpi_cs.export
 		.otg_hpi_data_in_port   (<connected-to-otg_hpi_data_in_port>),   //    otg_hpi_data.in_port

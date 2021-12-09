@@ -49,7 +49,9 @@ int main(void)
 	static alt_u16 ctl_reg = 0;
 	static alt_u16 no_device = 0;
 	alt_u16 fs_device = 0;
-	int keycode = 0;
+	int keycode1 = 0;
+	int keycode2 = 0;
+	int keycode3 = 0;
 	alt_u8 toggle = 0;
 	alt_u8 data_size;
 	alt_u8 hot_plug_count;
@@ -515,11 +517,15 @@ int main(void)
 
 		// The first two keycodes are stored in 0x051E. Other keycodes are in 
 		// subsequent addresses.
-		keycode = UsbRead(0x051e);
+		keycode1 = UsbRead(0x051e);
+		keycode2 = UsbRead(0x051f);
+		keycode3 = UsbRead(0x0520);
 		printf("\nfirst two keycode values are %04x\n",keycode);
 		// We only need the first keycode, which is at the lower byte of keycode.
 		// Send the keycode to hardware via PIO.
-		*keycode_base = keycode; 
+		*keycode1_base = keycode1; 
+		*keycode2_base = keycode2; 
+		*keycode3_base = keycode3; 
 
 		usleep(200);//usleep(5000);
 		usb_ctl_val = UsbRead(ctl_reg);
