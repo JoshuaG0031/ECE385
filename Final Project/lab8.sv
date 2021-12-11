@@ -58,7 +58,7 @@ module lab8( input               CLOCK_50,
 	 logic [9:0] DrawX,DrawY;
 	 logic is_ball;
 	 logic [7:0] led;
-    
+    logic w_key, a_key, d_key, arrow_up, arrow_left, arrow_right;
     assign Clk = CLOCK_50;
     always_ff @ (posedge Clk) begin
         Reset_h <= ~(KEY[0]);        // The push buttons are active low
@@ -68,6 +68,10 @@ module lab8( input               CLOCK_50,
     logic [1:0] hpi_addr;
     logic [15:0] hpi_data_in, hpi_data_out;
     logic hpi_r, hpi_w, hpi_cs, hpi_reset;
+	 
+	 logic [11:0] Fireboy_address,Watergirl_address;
+	 logic [3:0] Fireboy_direction,Watergirl_direction;
+	 logic is_Fireboy, is_Watergirl;
     
     // Interface between NIOS II and EZ-OTG chip
     hpi_io_intf hpi_io_inst(
@@ -138,14 +142,19 @@ module lab8( input               CLOCK_50,
 								.Clk(Clk),
                         .Reset(Reset_h),
                         .frame_clk(VGA_VS),
-                        .keycode(keycode),
+                        .w_key(w_key), .a_key(a_key), .d_key(d_key),
                         .DrawX(DrawX),
                         .DrawY(DrawY),
-                        .is_Fireboy(is_Fireboy)
+                        .is_Fireboy(is_Fireboy),
+								.Fireboy_address(Fireboy_address),
+								.Fireboy_direction(Fireboy_direction)
 								);
     
     color_mapper color_instance(
 										  .is_Fireboy(is_Fireboy),
+										  .is_Watergirl(is_Watergirl),
+										  .Fireboy_direction(Fireboy_direction),.Watergirl_direction(Watergirl_direction),
+										  .Fireboy_address(Fireboy_address),.Watergirl_address(Watergirl_address),
                                 .DrawX(DrawX),
                                 .DrawY(DrawY),
                                 .VGA_R(VGA_R),
@@ -155,6 +164,9 @@ module lab8( input               CLOCK_50,
     AudioController AC(.CLK(CLOCK_50),.Reset(~Reset_h),.FL_ADDR(FL_ADDR),.FL_DQ(FL_DQ),.FL_OE_N(FL_OE_N),.FL_WP_N(FL_WP_N),
 							  .FL_RST_N(FL_RET_N),.FL_WE_N(FL_WE_N),.FL_CE_N(FL_CE_N),.AUD_DACLRCK(AUD_DACLRCK),.AUD_BCLK(AUD_BCLK),
 							  .AUD_DACDAT(AUD_DACDAT),.AUD_XCK(AUD_XCK),.I2C_SCLK(I2C_SCLK),.I2C_SDAT(I2C_SDAT));
+							  
+	 keycode_reader keycode_reader(.*);
+	 
     // Display keycode on hex display
 
 							  

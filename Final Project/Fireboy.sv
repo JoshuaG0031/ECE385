@@ -2,8 +2,10 @@ module  Fireboy ( input      Clk,                // 50 MHz clock
                              Reset,              // Active-high reset signal
                              frame_clk,          // The clock indicating a new frame (~60Hz)
                input [9:0]   DrawX, DrawY,       // Current pixel coordinates
-               input [15:0]  keycode,
-					output logic  is_Fireboy             // Whether current pixel belongs to Fireboy
+               input         w_key, a_key, d_key,
+					output logic  is_Fireboy,           // Whether current pixel belongs to Fireboy
+					output logic [11:0] Fireboy_address,	// return the character pixel adress for ROM inference
+					output logic [3:0] Fireboy_direction
               );
     
     parameter [9:0] Fireboy_X_Center = 10'd320;  // Center position on the X axis
@@ -14,17 +16,12 @@ module  Fireboy ( input      Clk,                // 50 MHz clock
     parameter [9:0] Fireboy_Y_Max = 10'd479;     // Bottommost point on the Y axis
     parameter [9:0] Fireboy_X_Step = 10'd1;      // Step size on the X axis
     parameter [9:0] Fireboy_Y_Step = 10'd1;      // Step size on the Y axis
-	 parameter [9:0] Fireboy_X_Size = 10'd18; 
+	 parameter [9:0] Fireboy_X_Size = 10'd30; 
 	 parameter [9:0] Fireboy_Y_Size = 10'd30; 
-	 parameter [7:0] W=8'd26
-	 parameter [7:0] S=8'd22
-	 parameter [7:0] A=8'd4
-	 parameter [7:0] D=8'd7	
-	 parameter [7:0] Nothing=8'd0 
     
     logic [9:0] Fireboy_X_Pos, Fireboy_X_Motion, Fireboy_Y_Pos, Fireboy_Y_Motion;
     logic [9:0] Fireboy_X_Pos_in, Fireboy_X_Motion_in, Fireboy_Y_Pos_in, Fireboy_Y_Motion_in;
-	 
+
 	 // Detect rising edge of frame_clk
     logic frame_clk_delayed, frame_clk_rising_edge;
     always_ff @ (posedge Clk) begin
@@ -57,61 +54,77 @@ module  Fireboy ( input      Clk,                // 50 MHz clock
         Fireboy_Y_Pos_in = Fireboy_Y_Pos;
         Fireboy_X_Motion_in = 10'd0;
         Fireboy_Y_Motion_in = 10'd0;
+		  Fireboy_direction=4'd4;
         
         // Update position and motion only at rising edge of frame clock
         if (frame_clk_rising_edge)
         begin
-				case(keycode)
-					{Nothing,A}:begin
-							Fireboy_X_Motion_in = (~(Fireboy_X_Step)+1'b1);
-							Fireboy_Y_Motion_in = 10'h0;
-							end
-					{Nothing,D}:begin
-							Fireboy_X_Motion_in = Fireboy_X_Step;
-							Fireboy_Y_Motion_in = 10'h0;
-							end
-					{Nothing,W}:begin
-							Fireboy_X_Motion_in = 10'h0;
-							Fireboy_Y_Motion_in = (~(Fireboy_Y_Step)+1'b1);
-							end
-//					S:begin
-//							Fireboy_X_Motion_in = 10'h0;
-//							Fireboy_Y_Motion_in = Fireboy_Y_Step;
-//							end
-					{W,D}:begin
-							Fireboy_X_Motion_in = (~(Fireboy_X_Step)+1'b1);
-							Fireboy_Y_Motion_in = 10'h0;
-					{D,W}:begin
-							Fireboy_X_Motion_in = (~(Fireboy_X_Step)+1'b1);
-							Fireboy_Y_Motion_in = 10'h0;
-					{W,A}:begin
-							Fireboy_X_Motion_in = (~(Fireboy_X_Step)+1'b1);
-							Fireboy_Y_Motion_in = 10'h0;
-					{A,W}:begin
-							Fireboy_X_Motion_in = (~(Fireboy_X_Step)+1'b1);
-							Fireboy_Y_Motion_in = 10'h0;
-					default:
-							begin
-							end
-				endcase
 				
-				if( Fireboy_Y_Pos + Fireboy_Size >= Fireboy_Y_Max )  // Fireboy is at the bottom edge, STOP!
+				if (a_key&& !d_key)
+					begin
+						Fireboy_direction=4'd3;
+						Fireboy_X_Motion_in = (~(Fireboy_X_Step)+1'b1);
+					end
+				if (d_key&& !a_key)
+					begin
+						Fireboy_direction=4'd5;	
+						Fireboy_X_Motion_in = Fireboy_X_Step;
+					end
+				if (d_key==a_key)
+					begin
+						Fireboy_direction=4'd4;
+					end
+//				case(keycode)
+//					{Nothing,A}:begin
+//							Fireboy_X_Motion_in = (~(Fireboy_X_Step)+1'b1);
+//							Fireboy_Y_Motion_in = 10'h0;
+//							end
+//					{Nothing,D}:begin
+//							Fireboy_X_Motion_in = Fireboy_X_Step;
+//							Fireboy_Y_Motion_in = 10'h0;
+//							end
+//					{Nothing,W}:begin
+//							Fireboy_X_Motion_in = 10'h0;
+//							Fireboy_Y_Motion_in = (~(Fireboy_Y_Step)+1'b1);
+//							end
+////					S:begin
+////							Fireboy_X_Motion_in = 10'h0;
+////							Fireboy_Y_Motion_in = Fireboy_Y_Step;
+////							end
+//					{W,D}:begin
+//							Fireboy_X_Motion_in = (~(Fireboy_X_Step)+1'b1);
+//							Fireboy_Y_Motion_in = 10'h0;
+//					{D,W}:begin
+//							Fireboy_X_Motion_in = (~(Fireboy_X_Step)+1'b1);
+//							Fireboy_Y_Motion_in = 10'h0;
+//					{W,A}:begin
+//							Fireboy_X_Motion_in = (~(Fireboy_X_Step)+1'b1);
+//							Fireboy_Y_Motion_in = 10'h0;
+//					{A,W}:begin
+//							Fireboy_X_Motion_in = (~(Fireboy_X_Step)+1'b1);
+//							Fireboy_Y_Motion_in = 10'h0;
+//					default:
+//							begin
+//							end
+//				endcase
+				
+				if( Fireboy_Y_Pos + Fireboy_Y_Size >= Fireboy_Y_Max )  // Fireboy is at the bottom edge, STOP!
 				begin
                Fireboy_Y_Motion_in = 10'h0;  // 2's complement. 
 					Fireboy_X_Motion_in = 10'h0;
 				end
-            else if ( Fireboy_Y_Pos <= Fireboy_Y_Min + Fireboy_Size )  // Fireboy is at the top edge, STOP!
+            else if ( Fireboy_Y_Pos <= Fireboy_Y_Min + Fireboy_Y_Size )  // Fireboy is at the top edge, STOP!
 				begin
                Fireboy_Y_Motion_in = 10'h0;
 					Fireboy_X_Motion_in = 10'h0;
 				end
             // TODO: Add other boundary detections and handle keypress here.
-				else if( Fireboy_X_Pos + Fireboy_Size >= Fireboy_X_Max ) 
+				else if( Fireboy_X_Pos + Fireboy_X_Size >= Fireboy_X_Max ) 
 				begin
                Fireboy_X_Motion_in = 10'h0;
 					Fireboy_Y_Motion_in = 10'h0;
 				end
-            else if ( Fireboy_X_Pos <= Fireboy_X_Min + Fireboy_Size )
+            else if ( Fireboy_X_Pos <= Fireboy_X_Min + Fireboy_X_Size )
 				begin
                Fireboy_X_Motion_in = 10'h0;
 					Fireboy_Y_Motion_in = 10'h0;
@@ -120,14 +133,29 @@ module  Fireboy ( input      Clk,                // 50 MHz clock
 				Fireboy_X_Pos_in = Fireboy_X_Pos + Fireboy_X_Motion;
             Fireboy_Y_Pos_in = Fireboy_Y_Pos + Fireboy_Y_Motion;
         end
-	 
-	 logic dif_X, dif_Y;
-	 abs abs1(.dina(DrawX),.dinb(Fireboy_X_Pos),.dout(dif_X));
-	 abs abs2(.dina(DrawY),.dinb(Fireboy_Y_Pos),.dout(dif_Y));
+	end
+	
+	int pixel_x, pixel_y;
+   assign pixel_x = DrawX - Fireboy_X_Pos + Fireboy_X_Size;  // compute the address of the character
+   assign pixel_y = DrawY - Fireboy_Y_Pos + Fireboy_Y_Size;
+	
+	
+	 always_comb begin
+	// figure out which pixel is a background pixel or a character pixel 
+		if (pixel_x < (Fireboy_X_Size*2) && pixel_y < (Fireboy_Y_Size*2) && pixel_x >= 0 && pixel_y >= 0)
+			is_Fireboy = 1'b1;
+		else
+			is_Fireboy = 1'b0;
+			// check that it is a character
+		if (is_Fireboy == 1'b1)
 
-    always_comb begin
-        if ( dif_X <= Fireboy_X_Size && dif_Y <= Fireboy_Y_Size) 
-            is_Fireboy = 1'b1;
-        else
-            is_Fireboy = 1'b0;
-    end
+			//if (Fireboy_direction == 1'b1)
+			// get that character address 
+			// use dimensions of the character
+			Fireboy_address = pixel_x + pixel_y * Fireboy_X_Size*2;
+			
+
+		else
+			Fireboy_address = 9'b0;
+	end 
+endmodule
