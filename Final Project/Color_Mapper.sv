@@ -22,10 +22,12 @@ module  color_mapper ( input              is_Fireboy, is_Watergirl,
                      );
     
     logic [7:0] Red, Green, Blue;
-	 logic [23:0] pixel_color_Fireboy_still;
+	 logic [23:0] pixel_color_Fireboy_still,pixel_color_Fireboy_left,pixel_color_Fireboy_right;
     logic [23:0] pixel_color;
 	 //sprite modules
 	 Fireboy_still Fireboy_still(.read_address(Fireboy_address),.pixel_color(pixel_color_Fireboy_still));
+	 Fireboy_left Fireboy_left(.read_address(Fireboy_address),.pixel_color(pixel_color_Fireboy_left));
+	 Fireboy_right Fireboy_right(.read_address(Fireboy_address),.pixel_color(pixel_color_Fireboy_right));
 	 
     // Output colors to VGA
     assign VGA_R = Red;
@@ -46,6 +48,12 @@ module  color_mapper ( input              is_Fireboy, is_Watergirl,
 				case(Fireboy_direction)
 					4'd4:begin
 						pixel_color=pixel_color_Fireboy_still;
+						end
+					4'd3:begin
+						pixel_color=pixel_color_Fireboy_left;
+						end
+					4'd5:begin
+						pixel_color=pixel_color_Fireboy_right;
 						end
 					default:
 						begin
