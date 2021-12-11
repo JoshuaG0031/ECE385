@@ -39,7 +39,7 @@ for y in range(im.size[1]):
         if(pixel[3] < 200):
             outImg.putpixel((x,y), palette_rgb[0])
             outFile.write("%x\n" % (0))
-            print(i)
+            # print(i)
         else:
             index = pixel_tree.query(pixel[:3])[1]
             outImg.putpixel((x,y), palette_rgb[index])
