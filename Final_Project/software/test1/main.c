@@ -520,12 +520,15 @@ int main(void)
 		keycode1 = UsbRead(0x051e);
 		keycode2 = UsbRead(0x0520);
 		keycode3 = UsbRead(0x0522);
-		printf("\nfirst two keycode values are %04x,%04x,%04x\n",keycode3 ,keycode2,keycode1);
+		printf("\nkeycode values are %04x,%04x,%04x\n",keycode3 ,keycode2,keycode1);
 		// We only need the first keycode, which is at the lower byte of keycode.
 		// Send the keycode to hardware via PIO.
-		*keycode1_base = keycode1; 
-		*keycode2_base = keycode2; 
-		*keycode3_base = keycode3; 
+		*keycode1_base = keycode1 & 0xff; 
+		*keycode2_base = keycode1>>8 & 0xff;
+		*keycode3_base = keycode2 & 0xff;
+		*keycode4_base = keycode2>>8 & 0xff;
+		*keycode5_base = keycode3 & 0xff;
+		*keycode6_base = keycode3>>8 & 0xff; 
 
 		usleep(200);//usleep(5000);
 		usb_ctl_val = UsbRead(ctl_reg);

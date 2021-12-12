@@ -20,6 +20,9 @@
 		.sdram_wire_dq          (<connected-to-sdram_wire_dq>),          //                .dq
 		.sdram_wire_dqm         (<connected-to-sdram_wire_dqm>),         //                .dqm
 		.sdram_wire_ras_n       (<connected-to-sdram_wire_ras_n>),       //                .ras_n
-		.sdram_wire_we_n        (<connected-to-sdram_wire_we_n>)         //                .we_n
+		.sdram_wire_we_n        (<connected-to-sdram_wire_we_n>),        //                .we_n
+		.keycode4_export        (<connected-to-keycode4_export>),        //        keycode4.export
+		.keycode5_export        (<connected-to-keycode5_export>),        //        keycode5.export
+		.keycode6_export        (<connected-to-keycode6_export>)         //        keycode6.export
 	);
 

@@ -108,9 +108,12 @@ module lab8( input               CLOCK_50,
                              .sdram_wire_ras_n(DRAM_RAS_N),
                              .sdram_wire_we_n(DRAM_WE_N), 
                              .sdram_clk_clk(DRAM_CLK),
-                             .keycode1_export(keycode[15:0]), 
-									  .keycode2_export(keycode[31:16]),
-									  .keycode3_export(keycode[47:32]), 
+                             .keycode1_export(keycode[7:0]), 
+									  .keycode2_export(keycode[15:8]),
+									  .keycode3_export(keycode[23:16]), 
+									  .keycode4_export(keycode[31:24]),
+									  .keycode5_export(keycode[39:32]),
+									  .keycode6_export(keycode[47:40]),
                              .otg_hpi_address_export(hpi_addr),
                              .otg_hpi_data_in_port(hpi_data_in),
                              .otg_hpi_data_out_port(hpi_data_out),
@@ -161,15 +164,16 @@ module lab8( input               CLOCK_50,
                                 .VGA_G(VGA_G),
                                 .VGA_B(VGA_B)
 										  );
-    AudioController AC(.CLK(CLOCK_50),.Reset(~Reset_h),.FL_ADDR(FL_ADDR),.FL_DQ(FL_DQ),.FL_OE_N(FL_OE_N),.FL_WP_N(FL_WP_N),
-							  .FL_RST_N(FL_RET_N),.FL_WE_N(FL_WE_N),.FL_CE_N(FL_CE_N),.AUD_DACLRCK(AUD_DACLRCK),.AUD_BCLK(AUD_BCLK),
-							  .AUD_DACDAT(AUD_DACDAT),.AUD_XCK(AUD_XCK),.I2C_SCLK(I2C_SCLK),.I2C_SDAT(I2C_SDAT));
+//    AudioController AC(.CLK(CLOCK_50),.Reset(~Reset_h),.FL_ADDR(FL_ADDR),.FL_DQ(FL_DQ),.FL_OE_N(FL_OE_N),.FL_WP_N(FL_WP_N),
+//							  .FL_RST_N(FL_RET_N),.FL_WE_N(FL_WE_N),.FL_CE_N(FL_CE_N),.AUD_DACLRCK(AUD_DACLRCK),.AUD_BCLK(AUD_BCLK),
+//							  .AUD_DACDAT(AUD_DACDAT),.AUD_XCK(AUD_XCK),.I2C_SCLK(I2C_SCLK),.I2C_SDAT(I2C_SDAT));
 							  
 	 keycode_reader keycode_reader(.*);
 	 
     //Display keycode on hex display
 	 assign led[3:0]=Fireboy_direction[3:0];
-    HexDriver hex_inst_0 ({1'b0,w_key, a_key, d_key}, HEX5);
+    HexDriver hex_inst_0 ({1'b0,w_key, a_key, d_key}, HEX6);
+	 HexDriver hex_inst_1 ({1'b0,arrow_up, arrow_left, arrow_right}, HEX7);
 //	 HexDriver hex_inst_1 (keycode[43:40], HEX6);
 //    HexDriver hex_inst_2 (keycode[47:44], HEX7);
 	 

@@ -1,4 +1,4 @@
-// (C) 2001-2018 Intel Corporation. All rights reserved.
+// (C) 2001-2019 Intel Corporation. All rights reserved.
 // Your use of Intel Corporation's design tools, logic functions and other 
 // software and tools, and its AMPP partner logic functions, and any output 
 // files from any of the foregoing (including device programming or simulation 
@@ -24,9 +24,9 @@
 // agreement for further details.
 
 
-// $Id: //acds/rel/18.1std/ip/merlin/altera_merlin_multiplexer/altera_merlin_multiplexer.sv.terp#1 $
+// $Id: //acds/rel/19.1std/ip/merlin/altera_merlin_multiplexer/altera_merlin_multiplexer.sv.terp#1 $
 // $Revision: #1 $
-// $Date: 2018/07/18 $
+// $Date: 2018/11/07 $
 // $Author: psgswbuild $
 
 // ------------------------------------------
@@ -44,8 +44,8 @@
 //   ARBITRATION_SCHEME   "round-robin"
 //   PIPELINE_ARB:        1
 //   PKT_TRANS_LOCK:      69 (arbitration locking enabled)
-//   ST_DATA_W:           107
-//   ST_CHANNEL_W:        15
+//   ST_DATA_W:           109
+//   ST_CHANNEL_W:        18
 // ------------------------------------------
 
 module lab8_soc_mm_interconnect_0_cmd_mux
@@ -54,8 +54,8 @@ module lab8_soc_mm_interconnect_0_cmd_mux
     // Sinks
     // ----------------------
     input                       sink0_valid,
-    input [107-1   : 0]  sink0_data,
-    input [15-1: 0]  sink0_channel,
+    input [109-1   : 0]  sink0_data,
+    input [18-1: 0]  sink0_channel,
     input                       sink0_startofpacket,
     input                       sink0_endofpacket,
     output                      sink0_ready,
@@ -65,8 +65,8 @@ module lab8_soc_mm_interconnect_0_cmd_mux
     // Source
     // ----------------------
     output                      src_valid,
-    output [107-1    : 0] src_data,
-    output [15-1 : 0] src_channel,
+    output [109-1    : 0] src_data,
+    output [18-1 : 0] src_channel,
     output                      src_startofpacket,
     output                      src_endofpacket,
     input                       src_ready,
@@ -77,12 +77,12 @@ module lab8_soc_mm_interconnect_0_cmd_mux
     input clk,
     input reset
 );
-    localparam PAYLOAD_W        = 107 + 15 + 2;
+    localparam PAYLOAD_W        = 109 + 18 + 2;
     localparam NUM_INPUTS       = 1;
     localparam SHARE_COUNTER_W  = 1;
     localparam PIPELINE_ARB     = 1;
-    localparam ST_DATA_W        = 107;
-    localparam ST_CHANNEL_W     = 15;
+    localparam ST_DATA_W        = 109;
+    localparam ST_CHANNEL_W     = 18;
     localparam PKT_TRANS_LOCK   = 69;
 
     assign	src_valid			=  sink0_valid;

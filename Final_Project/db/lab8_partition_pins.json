@@ -16,31 +16,59 @@
 					"strict" : false
 				},
 				{
-					"name" : "HEX5[0]",
+					"name" : "HEX6[0]",
 					"strict" : false
 				},
 				{
-					"name" : "HEX5[1]",
+					"name" : "HEX6[1]",
 					"strict" : false
 				},
 				{
-					"name" : "HEX5[2]",
+					"name" : "HEX6[2]",
 					"strict" : false
 				},
 				{
-					"name" : "HEX5[3]",
+					"name" : "HEX6[3]",
 					"strict" : false
 				},
 				{
-					"name" : "HEX5[4]",
+					"name" : "HEX6[4]",
 					"strict" : false
 				},
 				{
-					"name" : "HEX5[5]",
+					"name" : "HEX6[5]",
 					"strict" : false
 				},
 				{
-					"name" : "HEX5[6]",
+					"name" : "HEX6[6]",
+					"strict" : false
+				},
+				{
+					"name" : "HEX7[0]",
+					"strict" : false
+				},
+				{
+					"name" : "HEX7[1]",
+					"strict" : false
+				},
+				{
+					"name" : "HEX7[2]",
+					"strict" : false
+				},
+				{
+					"name" : "HEX7[3]",
+					"strict" : false
+				},
+				{
+					"name" : "HEX7[4]",
+					"strict" : false
+				},
+				{
+					"name" : "HEX7[5]",
+					"strict" : false
+				},
+				{
+					"name" : "HEX7[6]",
 					"strict" : false
 				},
 				{
@@ -268,110 +296,6 @@
 					"strict" : false
 				},
 				{
-					"name" : "FL_ADDR[0]",
-					"strict" : false
-				},
-				{
-					"name" : "FL_ADDR[1]",
-					"strict" : false
-				},
-				{
-					"name" : "FL_ADDR[2]",
-					"strict" : false
-				},
-				{
-					"name" : "FL_ADDR[3]",
-					"strict" : false
-				},
-				{
-					"name" : "FL_ADDR[4]",
-					"strict" : false
-				},
-				{
-					"name" : "FL_ADDR[5]",
-					"strict" : false
-				},
-				{
-					"name" : "FL_ADDR[6]",
-					"strict" : false
-				},
-				{
-					"name" : "FL_ADDR[7]",
-					"strict" : false
-				},
-				{
-					"name" : "FL_ADDR[8]",
-					"strict" : false
-				},
-				{
-					"name" : "FL_ADDR[9]",
-					"strict" : false
-				},
-				{
-					"name" : "FL_ADDR[10]",
-					"strict" : false
-				},
-				{
-					"name" : "FL_ADDR[11]",
-					"strict" : false
-				},
-				{
-					"name" : "FL_ADDR[12]",
-					"strict" : false
-				},
-				{
-					"name" : "FL_ADDR[13]",
-					"strict" : false
-				},
-				{
-					"name" : "FL_ADDR[14]",
-					"strict" : false
-				},
-				{
-					"name" : "FL_ADDR[15]",
-					"strict" : false
-				},
-				{
-					"name" : "FL_ADDR[16]",
-					"strict" : false
-				},
-				{
-					"name" : "FL_ADDR[17]",
-					"strict" : false
-				},
-				{
-					"name" : "FL_ADDR[18]",
-					"strict" : false
-				},
-				{
-					"name" : "FL_ADDR[19]",
-					"strict" : false
-				},
-				{
-					"name" : "FL_ADDR[20]",
-					"strict" : false
-				},
-				{
-					"name" : "FL_ADDR[21]",
-					"strict" : false
-				},
-				{
-					"name" : "FL_ADDR[22]",
-					"strict" : false
-				},
-				{
-					"name" : "AUD_DACDAT",
-					"strict" : false
-				},
-				{
-					"name" : "I2C_SCLK",
-					"strict" : false
-				},
-				{
-					"name" : "AUD_DACLRCK",
-					"strict" : false
-				},
-				{
 					"name" : "OTG_DATA[0]",
 					"strict" : false
 				},
@@ -564,47 +488,11 @@
 					"strict" : false
 				},
 				{
-					"name" : "I2C_SDAT",
-					"strict" : false
-				},
-				{
 					"name" : "CLOCK_50",
 					"strict" : false
 				},
 				{
 					"name" : "KEY[0]",
-					"strict" : false
-				},
-				{
-					"name" : "FL_DQ[5]",
-					"strict" : false
-				},
-				{
-					"name" : "FL_DQ[3]",
-					"strict" : false
-				},
-				{
-					"name" : "FL_DQ[7]",
-					"strict" : false
-				},
-				{
-					"name" : "FL_DQ[1]",
-					"strict" : false
-				},
-				{
-					"name" : "FL_DQ[2]",
-					"strict" : false
-				},
-				{
-					"name" : "FL_DQ[4]",
-					"strict" : false
-				},
-				{
-					"name" : "FL_DQ[6]",
-					"strict" : false
-				},
-				{
-					"name" : "FL_DQ[0]",
 					"strict" : false
 				},
 				{

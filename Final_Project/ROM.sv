@@ -55,7 +55,7 @@ assign pixel_color = palette[ram[read_address]];
 
 initial
 begin
-	 $readmemh("C:/Users/moyang.19/Documents/GitHub/ECE385/PNG_To_Hex/On-Chip_Memory/sprite_bytes/Fireboy_still.txt", ram);
+	 $readmemh("../PNG_To_Hex/On-Chip_Memory/sprite_bytes/Fireboy_still.txt", ram);
 end
 
 endmodule
@@ -90,7 +90,7 @@ assign pixel_color = palette[ram[read_address]];
 
 initial
 begin
-	 $readmemh("C:/Users/moyang.19/Documents/GitHub/ECE385/PNG_To_Hex/On-Chip_Memory/sprite_bytes/Fireboy_left.txt", ram);
+	 $readmemh("../PNG_To_Hex/On-Chip_Memory/sprite_bytes/Fireboy_left.txt", ram);
 end
 
 endmodule
@@ -126,7 +126,7 @@ assign pixel_color = palette[ram[read_address]];
 
 initial
 begin
-	 $readmemh("C:/Users/moyang.19/Documents/GitHub/ECE385/PNG_To_Hex/On-Chip_Memory/sprite_bytes/Fireboy_right.txt", ram);
+	 $readmemh("../PNG_To_Hex/On-Chip_Memory/sprite_bytes/Fireboy_right.txt", ram);
 end
 
 endmodule

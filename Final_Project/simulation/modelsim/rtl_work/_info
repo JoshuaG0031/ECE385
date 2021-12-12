@@ -1,0 +1,54 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dD:/Github/ECE385/Final_Project/simulation/modelsim
+vvga_clk
+Z1 !s110 1639237900
+!i10b 1
+!s100 z^J0AX6[cg^^?mY=Yj_Vj0
+I]1Db:JKL_CL4ziA?ODJWO3
+Z2 VDg1SIo80bB@j0V0VzS_@n1
+R0
+w1639233864
+8D:/Github/ECE385/Final_Project/vga_clk.v
+FD:/Github/ECE385/Final_Project/vga_clk.v
+L0 39
+Z3 OV;L;10.5b;63
+r1
+!s85 0
+31
+Z4 !s108 1639237900.000000
+!s107 D:/Github/ECE385/Final_Project/vga_clk.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+D:/Github/ECE385/Final_Project|D:/Github/ECE385/Final_Project/vga_clk.v|
+!i113 1
+Z5 o-vlog01compat -work work
+!s92 -vlog01compat -work work +incdir+D:/Github/ECE385/Final_Project
+Z6 tCvgOpt 0
+vvga_clk_altpll
+R1
+!i10b 1
+!s100 QHoN]QoI64bB7ooMT6?QF2
+I?m5Z9XhNeoC2ildPj7Ib@2
+R2
+R0
+w1639237070
+8D:/Github/ECE385/Final_Project/db/vga_clk_altpll.v
+FD:/Github/ECE385/Final_Project/db/vga_clk_altpll.v
+L0 30
+R3
+r1
+!s85 0
+31
+R4
+!s107 D:/Github/ECE385/Final_Project/db/vga_clk_altpll.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+D:/Github/ECE385/Final_Project/db|D:/Github/ECE385/Final_Project/db/vga_clk_altpll.v|
+!i113 1
+R5
+!s92 -vlog01compat -work work +incdir+D:/Github/ECE385/Final_Project/db
+R6
