@@ -8,47 +8,328 @@ z2
 !i10f 100
 cModel Technology
 Z0 dD:/Github/ECE385/Final_Project/simulation/modelsim
+vcolor_mapper
+Z1 DXx6 sv_std 3 std 0 22 AD7iAPLo6nTIKk<N0eo=D3
+Z2 !s110 1639363349
+!i10b 1
+!s100 DA0H77MUdnPPAljFcJef?0
+I>RiLB2NH;7An[Qh?FjHC=2
+Z3 VDg1SIo80bB@j0V0VzS_@n1
+!s105 Color_Mapper_sv_unit
+S1
+R0
+Z4 w1639233863
+8D:/Github/ECE385/Final_Project/Color_Mapper.sv
+FD:/Github/ECE385/Final_Project/Color_Mapper.sv
+L0 17
+Z5 OV;L;10.5b;63
+r1
+!s85 0
+31
+Z6 !s108 1639363349.000000
+!s107 D:/Github/ECE385/Final_Project/Color_Mapper.sv|
+!s90 -reportprogress|300|-sv|-work|work|+incdir+D:/Github/ECE385/Final_Project|D:/Github/ECE385/Final_Project/Color_Mapper.sv|
+!i113 1
+Z7 o-sv -work work
+Z8 !s92 -sv -work work +incdir+D:/Github/ECE385/Final_Project
+Z9 tCvgOpt 0
+vFireboy
+R1
+R2
+!i10b 1
+!s100 VeH9bYfWHIL817UB3T22U0
+IV2[Uo[3fDnb0:?>ZRj9k:0
+R3
+!s105 Fireboy_sv_unit
+S1
+R0
+R4
+8D:/Github/ECE385/Final_Project/Fireboy.sv
+FD:/Github/ECE385/Final_Project/Fireboy.sv
+L0 1
+R5
+r1
+!s85 0
+31
+R6
+!s107 D:/Github/ECE385/Final_Project/Fireboy.sv|
+!s90 -reportprogress|300|-sv|-work|work|+incdir+D:/Github/ECE385/Final_Project|D:/Github/ECE385/Final_Project/Fireboy.sv|
+!i113 1
+R7
+R8
+R9
+n@fireboy
+vFireboy_left
+R1
+Z10 !s110 1639363350
+!i10b 1
+!s100 d9BkQbDUk?md2dd9Tl5]51
+IJlbj]dhYo0_[7T^I9@Aan2
+R3
+Z11 !s105 ROM_sv_unit
+S1
+R0
+Z12 w1639237188
+Z13 8D:/Github/ECE385/Final_Project/ROM.sv
+Z14 FD:/Github/ECE385/Final_Project/ROM.sv
+L0 68
+R5
+r1
+!s85 0
+31
+Z15 !s108 1639363350.000000
+Z16 !s107 D:/Github/ECE385/Final_Project/ROM.sv|
+Z17 !s90 -reportprogress|300|-sv|-work|work|+incdir+D:/Github/ECE385/Final_Project|D:/Github/ECE385/Final_Project/ROM.sv|
+!i113 1
+R7
+R8
+R9
+n@fireboy_left
+vFireboy_right
+R1
+R10
+!i10b 1
+!s100 _nGEcEW1CjafT[k0HhgcJ1
+IF7IOPMl[;Mf3FETNP@GNL1
+R3
+R11
+S1
+R0
+R12
+R13
+R14
+L0 103
+R5
+r1
+!s85 0
+31
+R15
+R16
+R17
+!i113 1
+R7
+R8
+R9
+n@fireboy_right
+vFireboy_still
+R1
+R10
+!i10b 1
+!s100 Zd]j`BCLXR>zkFb_59LGV2
+Ih_nJ5@1MmUo3QABG_YAmS1
+R3
+R11
+S1
+R0
+R12
+R13
+R14
+L0 32
+R5
+r1
+!s85 0
+31
+R15
+R16
+R17
+!i113 1
+R7
+R8
+R9
+n@fireboy_still
+vHexDriver
+R1
+R2
+!i10b 1
+!s100 hKBo4zbCRmY3[Ac9JZP;<0
+I2l[WC;jfMhQjDJb0_cSl@3
+R3
+!s105 HexDriver_sv_unit
+S1
+R0
+R4
+8D:/Github/ECE385/Final_Project/HexDriver.sv
+FD:/Github/ECE385/Final_Project/HexDriver.sv
+L0 1
+R5
+r1
+!s85 0
+31
+R6
+!s107 D:/Github/ECE385/Final_Project/HexDriver.sv|
+!s90 -reportprogress|300|-sv|-work|work|+incdir+D:/Github/ECE385/Final_Project|D:/Github/ECE385/Final_Project/HexDriver.sv|
+!i113 1
+R7
+R8
+R9
+n@hex@driver
+vhpi_io_intf
+R1
+R2
+!i10b 1
+!s100 e<XzLm02bAc0S3Qk4K[ga1
+Ihd0fYd_@`A6I4N9iWJF?I2
+R3
+!s105 hpi_io_intf_sv_unit
+S1
+R0
+w1639359150
+8D:/Github/ECE385/Final_Project/hpi_io_intf.sv
+FD:/Github/ECE385/Final_Project/hpi_io_intf.sv
+L0 2
+R5
+r1
+!s85 0
+31
+R6
+!s107 D:/Github/ECE385/Final_Project/hpi_io_intf.sv|
+!s90 -reportprogress|300|-sv|-work|work|+incdir+D:/Github/ECE385/Final_Project|D:/Github/ECE385/Final_Project/hpi_io_intf.sv|
+!i113 1
+R7
+R8
+R9
+vkeycode_reader
+R1
+R2
+!i10b 1
+!s100 aR7Y8N^[BS6dCQ<MZ1>1W2
+I?Siom@IFcBPX]6C1YF9h[3
+R3
+!s105 keycode_reader_sv_unit
+S1
+R0
+w1639308742
+8D:/Github/ECE385/Final_Project/keycode_reader.sv
+FD:/Github/ECE385/Final_Project/keycode_reader.sv
+L0 1
+R5
+r1
+!s85 0
+31
+R6
+!s107 D:/Github/ECE385/Final_Project/keycode_reader.sv|
+!s90 -reportprogress|300|-sv|-work|work|+incdir+D:/Github/ECE385/Final_Project|D:/Github/ECE385/Final_Project/keycode_reader.sv|
+!i113 1
+R7
+R8
+R9
+vlab8
+R1
+R10
+!i10b 1
+!s100 T7SeKRgI74WRZVc4zC9L_1
+I^861`nMAISVAKBz[Zj1Q53
+R3
+!s105 lab8_sv_unit
+S1
+R0
+w1639288386
+8D:/Github/ECE385/Final_Project/lab8.sv
+FD:/Github/ECE385/Final_Project/lab8.sv
+L0 16
+R5
+r1
+!s85 0
+31
+R15
+!s107 D:/Github/ECE385/Final_Project/lab8.sv|
+!s90 -reportprogress|300|-sv|-work|work|+incdir+D:/Github/ECE385/Final_Project|D:/Github/ECE385/Final_Project/lab8.sv|
+!i113 1
+R7
+R8
+R9
+vtestbench
+R1
+!s110 1639363352
+!i10b 1
+!s100 B:o4Ml9dWTMI]6NkNC]9>1
+I=aZV5I=X46:<zAk8Ka:L22
+R3
+!s105 testbench_sv_unit
+S1
+R0
+w1639362951
+8D:/Github/ECE385/Final_Project/testbench.sv
+FD:/Github/ECE385/Final_Project/testbench.sv
+L0 1
+R5
+r1
+!s85 0
+31
+!s108 1639363352.000000
+!s107 D:/Github/ECE385/Final_Project/testbench.sv|
+!s90 -reportprogress|300|-sv|-work|work|+incdir+D:/Github/ECE385/Final_Project|D:/Github/ECE385/Final_Project/testbench.sv|
+!i113 1
+R7
+R8
+R9
 vvga_clk
-Z1 !s110 1639237900
+Z18 !s110 1639363346
 !i10b 1
 !s100 z^J0AX6[cg^^?mY=Yj_Vj0
 I]1Db:JKL_CL4ziA?ODJWO3
-Z2 VDg1SIo80bB@j0V0VzS_@n1
+R3
 R0
 w1639233864
 8D:/Github/ECE385/Final_Project/vga_clk.v
 FD:/Github/ECE385/Final_Project/vga_clk.v
 L0 39
-Z3 OV;L;10.5b;63
+R5
 r1
 !s85 0
 31
-Z4 !s108 1639237900.000000
+Z19 !s108 1639363346.000000
 !s107 D:/Github/ECE385/Final_Project/vga_clk.v|
 !s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+D:/Github/ECE385/Final_Project|D:/Github/ECE385/Final_Project/vga_clk.v|
 !i113 1
-Z5 o-vlog01compat -work work
+Z20 o-vlog01compat -work work
 !s92 -vlog01compat -work work +incdir+D:/Github/ECE385/Final_Project
-Z6 tCvgOpt 0
+R9
 vvga_clk_altpll
-R1
+R18
 !i10b 1
 !s100 QHoN]QoI64bB7ooMT6?QF2
 I?m5Z9XhNeoC2ildPj7Ib@2
-R2
+R3
 R0
 w1639237070
 8D:/Github/ECE385/Final_Project/db/vga_clk_altpll.v
 FD:/Github/ECE385/Final_Project/db/vga_clk_altpll.v
 L0 30
-R3
+R5
 r1
 !s85 0
 31
-R4
+R19
 !s107 D:/Github/ECE385/Final_Project/db/vga_clk_altpll.v|
 !s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+D:/Github/ECE385/Final_Project/db|D:/Github/ECE385/Final_Project/db/vga_clk_altpll.v|
 !i113 1
-R5
+R20
 !s92 -vlog01compat -work work +incdir+D:/Github/ECE385/Final_Project/db
+R9
+vVGA_controller
+R1
+R2
+!i10b 1
+!s100 iZ^ZkeRFZV@Tdc684OR@G2
+IO]296GmCVLB9<QNa`<Bh72
+R3
+!s105 VGA_controller_sv_unit
+S1
+R0
+w1512857293
+8D:/Github/ECE385/Final_Project/VGA_controller.sv
+FD:/Github/ECE385/Final_Project/VGA_controller.sv
+L0 26
+R5
+r1
+!s85 0
+31
 R6
+!s107 D:/Github/ECE385/Final_Project/VGA_controller.sv|
+!s90 -reportprogress|300|-sv|-work|work|+incdir+D:/Github/ECE385/Final_Project|D:/Github/ECE385/Final_Project/VGA_controller.sv|
+!i113 1
+R7
+R8
+R9
+n@v@g@a_controller
