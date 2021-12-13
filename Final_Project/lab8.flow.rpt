@@ -1,5 +1,5 @@
 Flow report for lab8
-Mon Dec 13 12:55:34 2021
+Mon Dec 13 15:47:41 2021
 Quartus Prime Version 19.1.0 Build 670 09/22/2019 SJ Lite Edition
 
 
@@ -41,22 +41,22 @@ https://fpgasoftware.intel.com/eula.
 +----------------------------------------------------------------------------------+
 ; Flow Summary                                                                     ;
 +------------------------------------+---------------------------------------------+
-; Flow Status                        ; Successful - Mon Dec 13 12:55:34 2021       ;
+; Flow Status                        ; Successful - Mon Dec 13 15:47:41 2021       ;
 ; Quartus Prime Version              ; 19.1.0 Build 670 09/22/2019 SJ Lite Edition ;
 ; Revision Name                      ; lab8                                        ;
 ; Top-level Entity Name              ; lab8                                        ;
 ; Family                             ; Cyclone IV E                                ;
 ; Device                             ; EP4CE115F29C7                               ;
 ; Timing Models                      ; Final                                       ;
-; Total logic elements               ; 4,860                                       ;
-;     Total combinational functions  ; 3,866                                       ;
-;     Dedicated logic registers      ; 2,270                                       ;
-; Total registers                    ; 2270                                        ;
-; Total pins                         ; 220                                         ;
+; Total logic elements               ; 4,573 / 114,480 ( 4 % )                     ;
+;     Total combinational functions  ; 3,932 / 114,480 ( 3 % )                     ;
+;     Dedicated logic registers      ; 2,209 / 114,480 ( 2 % )                     ;
+; Total registers                    ; 2328                                        ;
+; Total pins                         ; 220 / 529 ( 42 % )                          ;
 ; Total virtual pins                 ; 0                                           ;
-; Total memory bits                  ; 11,392                                      ;
-; Embedded Multiplier 9-bit elements ; 0                                           ;
-; Total PLLs                         ; 2                                           ;
+; Total memory bits                  ; 11,392 / 3,981,312 ( < 1 % )                ;
+; Embedded Multiplier 9-bit elements ; 0 / 532 ( 0 % )                             ;
+; Total PLLs                         ; 2 / 4 ( 50 % )                              ;
 +------------------------------------+---------------------------------------------+
 
 
@@ -65,7 +65,7 @@ https://fpgasoftware.intel.com/eula.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 12/13/2021 12:54:45 ;
+; Start date & time ; 12/13/2021 15:44:43 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; lab8                ;
 +-------------------+---------------------+
@@ -76,7 +76,7 @@ https://fpgasoftware.intel.com/eula.
 +--------------------------------------+------------------------------------------------------------+---------------+-------------------+----------------+
 ; Assignment Name                      ; Value                                                      ; Default Value ; Entity Name       ; Section Id     ;
 +--------------------------------------+------------------------------------------------------------+---------------+-------------------+----------------+
-; COMPILER_SIGNATURE_ID                ; 118933440281863.163937128536276                            ; --            ; --                ; --             ;
+; COMPILER_SIGNATURE_ID                ; 24062491136.163938148331164                                ; --            ; --                ; --             ;
 ; EDA_DESIGN_INSTANCE_NAME             ; NA                                                         ; --            ; --                ; testbench      ;
 ; EDA_NATIVELINK_SIMULATION_TEST_BENCH ; testbench                                                  ; --            ; --                ; eda_simulation ;
 ; EDA_OUTPUT_DATA_FORMAT               ; Systemverilog Hdl                                          ; --            ; --                ; eda_simulation ;
@@ -118,8 +118,13 @@ https://fpgasoftware.intel.com/eula.
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name          ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis ; 00:00:47     ; 1.0                     ; 4980 MB             ; 00:01:01                           ;
-; Total                ; 00:00:47     ; --                      ; --                  ; 00:01:01                           ;
+; Analysis & Synthesis ; 00:00:52     ; 1.0                     ; 5004 MB             ; 00:01:08                           ;
+; Fitter               ; 00:00:55     ; 1.0                     ; 5934 MB             ; 00:00:37                           ;
+; Assembler            ; 00:00:04     ; 1.0                     ; 4710 MB             ; 00:00:03                           ;
+; Power Analyzer       ; 00:00:15     ; 1.0                     ; 4963 MB             ; 00:00:09                           ;
+; Timing Analyzer      ; 00:00:05     ; 1.2                     ; 4925 MB             ; 00:00:04                           ;
+; EDA Netlist Writer   ; 00:00:06     ; 1.0                     ; 4736 MB             ; 00:00:06                           ;
+; Total                ; 00:02:17     ; --                      ; --                  ; 00:02:07                           ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 
@@ -129,6 +134,11 @@ https://fpgasoftware.intel.com/eula.
 ; Module Name          ; Machine Hostname ; OS Name    ; OS Version ; Processor type ;
 +----------------------+------------------+------------+------------+----------------+
 ; Analysis & Synthesis ; DESKTOP-6I2CKSR  ; Windows 10 ; 10.0       ; x86_64         ;
+; Fitter               ; DESKTOP-6I2CKSR  ; Windows 10 ; 10.0       ; x86_64         ;
+; Assembler            ; DESKTOP-6I2CKSR  ; Windows 10 ; 10.0       ; x86_64         ;
+; Power Analyzer       ; DESKTOP-6I2CKSR  ; Windows 10 ; 10.0       ; x86_64         ;
+; Timing Analyzer      ; DESKTOP-6I2CKSR  ; Windows 10 ; 10.0       ; x86_64         ;
+; EDA Netlist Writer   ; DESKTOP-6I2CKSR  ; Windows 10 ; 10.0       ; x86_64         ;
 +----------------------+------------------+------------+------------+----------------+
 
 
@@ -136,6 +146,11 @@ https://fpgasoftware.intel.com/eula.
 ; Flow Log ;
 ------------
 quartus_map --read_settings_files=on --write_settings_files=off lab8 -c lab8
+quartus_fit --read_settings_files=off --write_settings_files=off lab8 -c lab8
+quartus_asm --read_settings_files=off --write_settings_files=off lab8 -c lab8
+quartus_pow --read_settings_files=off --write_settings_files=off lab8 -c lab8
+quartus_sta lab8 -c lab8
+quartus_eda --read_settings_files=off --write_settings_files=off lab8 -c lab8
 
 
 

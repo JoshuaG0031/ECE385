@@ -37,13 +37,8 @@ module  color_mapper ( input              is_Fireboy, is_Watergirl,
     // Assign color based on is_Fireboy signal
     always_comb
     begin
-        Red = 8'hff; 
-        Green = 8'hff;
-        Blue = 8'hff;
-		  pixel_color = 24'd0;
-		  
-		  
-		  if (is_Fireboy == 1'b1) 
+		  pixel_color = 24'hffffff; //background color
+		  if (is_Fireboy) 
         begin
 				case(Fireboy_direction)
 					4'd4:begin
@@ -59,11 +54,12 @@ module  color_mapper ( input              is_Fireboy, is_Watergirl,
 						begin
 						end
 				endcase
+				if (pixel_color == 24'h800080)
+					pixel_color = 24'hffffff;
+			end
 			Red = pixel_color[23:16];
 			Green = pixel_color[15:8];
 			Blue = pixel_color[7:0];
-		  end
-
 	 end 
     
 endmodule

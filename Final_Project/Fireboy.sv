@@ -79,7 +79,7 @@ module  Fireboy ( input      Clk,                // 50 MHz clock
 
 //				if( Fireboy_Y_Pos + Fireboy_Y_Size >= Fireboy_Y_Max )  // Fireboy is at the bottom edge, STOP!
 //				begin
-//               Fireboy_Y_Motion_in = 10'h0;  // 2's complement. 
+//               Fireboy_Y_Motion_in = 10'h0;  
 //					Fireboy_X_Motion_in = 10'h0;
 //				end
 //            else if ( Fireboy_Y_Pos <= Fireboy_Y_Min + Fireboy_Y_Size )  // Fireboy is at the top edge, STOP!
@@ -87,17 +87,26 @@ module  Fireboy ( input      Clk,                // 50 MHz clock
 //               Fireboy_Y_Motion_in = 10'h0;
 //					Fireboy_X_Motion_in = 10'h0;
 //				end
-//            // TODO: Add other boundary detections and handle keypress here.
-//				else if( Fireboy_X_Pos + Fireboy_X_Size >= Fireboy_X_Max ) 
-//				begin
-//               Fireboy_X_Motion_in = 10'h0;
-//					Fireboy_Y_Motion_in = 10'h0;
-//				end
-//            else if ( Fireboy_X_Pos <= Fireboy_X_Min + Fireboy_X_Size )
-//				begin
-//               Fireboy_X_Motion_in = 10'h0;
-//					Fireboy_Y_Motion_in = 10'h0;
-//				end
+				if( Fireboy_X_Pos + Fireboy_X_Size >= Fireboy_X_Max ) // Fireboy is at the rightest edge
+				begin
+               Fireboy_X_Motion_in = 10'h0;	
+					Fireboy_direction_in = 4'd4; //stop Fireboy by default
+					if (a_key && ~d_key)	//press a (left)
+					begin
+						Fireboy_direction_in = 4'd3;
+						Fireboy_X_Motion_in = (~(Fireboy_X_Step)+1'b1);
+					end
+				end
+            else if ( Fireboy_X_Pos <= Fireboy_X_Min + Fireboy_X_Size ) // Fireboy is at the leftest edge
+				begin
+               Fireboy_X_Motion_in = 10'h0;	
+					Fireboy_direction_in = 4'd4;//stop Fireboy by default
+					if (d_key && ~a_key) // press d (right)
+					begin
+						Fireboy_direction_in = 4'd5;	
+						Fireboy_X_Motion_in = Fireboy_X_Step;
+					end
+				end
 				
 				Fireboy_X_Pos_in = Fireboy_X_Pos + Fireboy_X_Motion;
             Fireboy_Y_Pos_in = Fireboy_Y_Pos + Fireboy_Y_Motion;
