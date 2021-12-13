@@ -1,5 +1,5 @@
 Flow report for lab8
-Mon Dec 13 10:36:46 2021
+Mon Dec 13 12:55:34 2021
 Quartus Prime Version 19.1.0 Build 670 09/22/2019 SJ Lite Edition
 
 
@@ -41,15 +41,15 @@ https://fpgasoftware.intel.com/eula.
 +----------------------------------------------------------------------------------+
 ; Flow Summary                                                                     ;
 +------------------------------------+---------------------------------------------+
-; Flow Status                        ; Successful - Mon Dec 13 10:36:45 2021       ;
+; Flow Status                        ; Successful - Mon Dec 13 12:55:34 2021       ;
 ; Quartus Prime Version              ; 19.1.0 Build 670 09/22/2019 SJ Lite Edition ;
 ; Revision Name                      ; lab8                                        ;
 ; Top-level Entity Name              ; lab8                                        ;
 ; Family                             ; Cyclone IV E                                ;
 ; Device                             ; EP4CE115F29C7                               ;
 ; Timing Models                      ; Final                                       ;
-; Total logic elements               ; 4,873                                       ;
-;     Total combinational functions  ; 3,879                                       ;
+; Total logic elements               ; 4,860                                       ;
+;     Total combinational functions  ; 3,866                                       ;
 ;     Dedicated logic registers      ; 2,270                                       ;
 ; Total registers                    ; 2270                                        ;
 ; Total pins                         ; 220                                         ;
@@ -65,7 +65,7 @@ https://fpgasoftware.intel.com/eula.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 12/13/2021 10:35:55 ;
+; Start date & time ; 12/13/2021 12:54:45 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; lab8                ;
 +-------------------+---------------------+
@@ -76,7 +76,7 @@ https://fpgasoftware.intel.com/eula.
 +--------------------------------------+------------------------------------------------------------+---------------+-------------------+----------------+
 ; Assignment Name                      ; Value                                                      ; Default Value ; Entity Name       ; Section Id     ;
 +--------------------------------------+------------------------------------------------------------+---------------+-------------------+----------------+
-; COMPILER_SIGNATURE_ID                ; 118933440281863.163936295516080                            ; --            ; --                ; --             ;
+; COMPILER_SIGNATURE_ID                ; 118933440281863.163937128536276                            ; --            ; --                ; --             ;
 ; EDA_DESIGN_INSTANCE_NAME             ; NA                                                         ; --            ; --                ; testbench      ;
 ; EDA_NATIVELINK_SIMULATION_TEST_BENCH ; testbench                                                  ; --            ; --                ; eda_simulation ;
 ; EDA_OUTPUT_DATA_FORMAT               ; Systemverilog Hdl                                          ; --            ; --                ; eda_simulation ;
@@ -118,8 +118,8 @@ https://fpgasoftware.intel.com/eula.
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name          ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis ; 00:00:48     ; 1.0                     ; 5002 MB             ; 00:01:03                           ;
-; Total                ; 00:00:48     ; --                      ; --                  ; 00:01:03                           ;
+; Analysis & Synthesis ; 00:00:47     ; 1.0                     ; 4980 MB             ; 00:01:01                           ;
+; Total                ; 00:00:47     ; --                      ; --                  ; 00:01:01                           ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 
