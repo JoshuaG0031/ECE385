@@ -4,6 +4,9 @@
 			keycode1_export        : out   std_logic_vector(7 downto 0);                     -- export
 			keycode2_export        : out   std_logic_vector(7 downto 0);                     -- export
 			keycode3_export        : out   std_logic_vector(7 downto 0);                     -- export
+			keycode4_export        : out   std_logic_vector(7 downto 0);                     -- export
+			keycode5_export        : out   std_logic_vector(7 downto 0);                     -- export
+			keycode6_export        : out   std_logic_vector(7 downto 0);                     -- export
 			otg_hpi_address_export : out   std_logic_vector(1 downto 0);                     -- export
 			otg_hpi_cs_export      : out   std_logic;                                        -- export
 			otg_hpi_data_in_port   : in    std_logic_vector(15 downto 0) := (others => 'X'); -- in_port
@@ -21,10 +24,7 @@
 			sdram_wire_dq          : inout std_logic_vector(31 downto 0) := (others => 'X'); -- dq
 			sdram_wire_dqm         : out   std_logic_vector(3 downto 0);                     -- dqm
 			sdram_wire_ras_n       : out   std_logic;                                        -- ras_n
-			sdram_wire_we_n        : out   std_logic;                                        -- we_n
-			keycode4_export        : out   std_logic_vector(7 downto 0);                     -- export
-			keycode5_export        : out   std_logic_vector(7 downto 0);                     -- export
-			keycode6_export        : out   std_logic_vector(7 downto 0)                      -- export
+			sdram_wire_we_n        : out   std_logic                                         -- we_n
 		);
 	end component lab8_soc;
 
@@ -34,6 +34,9 @@
 			keycode1_export        => CONNECTED_TO_keycode1_export,        --        keycode1.export
 			keycode2_export        => CONNECTED_TO_keycode2_export,        --        keycode2.export
 			keycode3_export        => CONNECTED_TO_keycode3_export,        --        keycode3.export
+			keycode4_export        => CONNECTED_TO_keycode4_export,        --        keycode4.export
+			keycode5_export        => CONNECTED_TO_keycode5_export,        --        keycode5.export
+			keycode6_export        => CONNECTED_TO_keycode6_export,        --        keycode6.export
 			otg_hpi_address_export => CONNECTED_TO_otg_hpi_address_export, -- otg_hpi_address.export
 			otg_hpi_cs_export      => CONNECTED_TO_otg_hpi_cs_export,      --      otg_hpi_cs.export
 			otg_hpi_data_in_port   => CONNECTED_TO_otg_hpi_data_in_port,   --    otg_hpi_data.in_port
@@ -51,9 +54,6 @@
 			sdram_wire_dq          => CONNECTED_TO_sdram_wire_dq,          --                .dq
 			sdram_wire_dqm         => CONNECTED_TO_sdram_wire_dqm,         --                .dqm
 			sdram_wire_ras_n       => CONNECTED_TO_sdram_wire_ras_n,       --                .ras_n
-			sdram_wire_we_n        => CONNECTED_TO_sdram_wire_we_n,        --                .we_n
-			keycode4_export        => CONNECTED_TO_keycode4_export,        --        keycode4.export
-			keycode5_export        => CONNECTED_TO_keycode5_export,        --        keycode5.export
-			keycode6_export        => CONNECTED_TO_keycode6_export         --        keycode6.export
+			sdram_wire_we_n        => CONNECTED_TO_sdram_wire_we_n         --                .we_n
 		);
 

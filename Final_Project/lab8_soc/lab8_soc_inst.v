@@ -3,6 +3,9 @@
 		.keycode1_export        (<connected-to-keycode1_export>),        //        keycode1.export
 		.keycode2_export        (<connected-to-keycode2_export>),        //        keycode2.export
 		.keycode3_export        (<connected-to-keycode3_export>),        //        keycode3.export
+		.keycode4_export        (<connected-to-keycode4_export>),        //        keycode4.export
+		.keycode5_export        (<connected-to-keycode5_export>),        //        keycode5.export
+		.keycode6_export        (<connected-to-keycode6_export>),        //        keycode6.export
 		.otg_hpi_address_export (<connected-to-otg_hpi_address_export>), // otg_hpi_address.export
 		.otg_hpi_cs_export      (<connected-to-otg_hpi_cs_export>),      //      otg_hpi_cs.export
 		.otg_hpi_data_in_port   (<connected-to-otg_hpi_data_in_port>),   //    otg_hpi_data.in_port
@@ -20,9 +23,6 @@
 		.sdram_wire_dq          (<connected-to-sdram_wire_dq>),          //                .dq
 		.sdram_wire_dqm         (<connected-to-sdram_wire_dqm>),         //                .dqm
 		.sdram_wire_ras_n       (<connected-to-sdram_wire_ras_n>),       //                .ras_n
-		.sdram_wire_we_n        (<connected-to-sdram_wire_we_n>),        //                .we_n
-		.keycode4_export        (<connected-to-keycode4_export>),        //        keycode4.export
-		.keycode5_export        (<connected-to-keycode5_export>),        //        keycode5.export
-		.keycode6_export        (<connected-to-keycode6_export>)         //        keycode6.export
+		.sdram_wire_we_n        (<connected-to-sdram_wire_we_n>)         //                .we_n
 	);
 

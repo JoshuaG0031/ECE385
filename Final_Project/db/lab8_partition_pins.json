@@ -16,6 +16,10 @@
 					"strict" : false
 				},
 				{
+					"name" : "LEDG[3]",
+					"strict" : false
+				},
+				{
 					"name" : "HEX6[0]",
 					"strict" : false
 				},

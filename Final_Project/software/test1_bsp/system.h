@@ -4,7 +4,7 @@
  * Machine generated for CPU 'nios2_gen2_0' in SOPC Builder design 'lab8_soc'
  * SOPC Builder design path: ../../lab8_soc.sopcinfo
  *
- * Generated: Sat Dec 11 20:40:17 CST 2021
+ * Generated: Wed Dec 15 15:03:17 CST 2021
  */
 
 /*
@@ -158,19 +158,19 @@
 #define ALT_NUM_INTERNAL_INTERRUPT_CONTROLLERS 1
 #define ALT_NUM_INTERRUPT_CONTROLLERS 1
 #define ALT_STDERR "/dev/jtag_uart_0"
-#define ALT_STDERR_BASE 0xd0
+#define ALT_STDERR_BASE 0x100
 #define ALT_STDERR_DEV jtag_uart_0
 #define ALT_STDERR_IS_JTAG_UART
 #define ALT_STDERR_PRESENT
 #define ALT_STDERR_TYPE "altera_avalon_jtag_uart"
 #define ALT_STDIN "/dev/jtag_uart_0"
-#define ALT_STDIN_BASE 0xd0
+#define ALT_STDIN_BASE 0x100
 #define ALT_STDIN_DEV jtag_uart_0
 #define ALT_STDIN_IS_JTAG_UART
 #define ALT_STDIN_PRESENT
 #define ALT_STDIN_TYPE "altera_avalon_jtag_uart"
 #define ALT_STDOUT "/dev/jtag_uart_0"
-#define ALT_STDOUT_BASE 0xd0
+#define ALT_STDOUT_BASE 0x100
 #define ALT_STDOUT_DEV jtag_uart_0
 #define ALT_STDOUT_IS_JTAG_UART
 #define ALT_STDOUT_PRESENT
@@ -195,7 +195,7 @@
  */
 
 #define ALT_MODULE_CLASS_jtag_uart_0 altera_avalon_jtag_uart
-#define JTAG_UART_0_BASE 0xd0
+#define JTAG_UART_0_BASE 0x100
 #define JTAG_UART_0_IRQ 0
 #define JTAG_UART_0_IRQ_INTERRUPT_CONTROLLER_ID 0
 #define JTAG_UART_0_NAME "/dev/jtag_uart_0"
@@ -213,11 +213,11 @@
  */
 
 #define ALT_MODULE_CLASS_keycode1 altera_avalon_pio
-#define KEYCODE1_BASE 0xa0
+#define KEYCODE1_BASE 0xd0
 #define KEYCODE1_BIT_CLEARING_EDGE_REGISTER 0
 #define KEYCODE1_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define KEYCODE1_CAPTURE 0
-#define KEYCODE1_DATA_WIDTH 16
+#define KEYCODE1_DATA_WIDTH 8
 #define KEYCODE1_DO_TEST_BENCH_WIRING 0
 #define KEYCODE1_DRIVEN_SIM_VALUE 0
 #define KEYCODE1_EDGE_TYPE "NONE"
@@ -240,11 +240,11 @@
  */
 
 #define ALT_MODULE_CLASS_keycode2 altera_avalon_pio
-#define KEYCODE2_BASE 0x30
+#define KEYCODE2_BASE 0x60
 #define KEYCODE2_BIT_CLEARING_EDGE_REGISTER 0
 #define KEYCODE2_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define KEYCODE2_CAPTURE 0
-#define KEYCODE2_DATA_WIDTH 16
+#define KEYCODE2_DATA_WIDTH 8
 #define KEYCODE2_DO_TEST_BENCH_WIRING 0
 #define KEYCODE2_DRIVEN_SIM_VALUE 0
 #define KEYCODE2_EDGE_TYPE "NONE"
@@ -267,11 +267,11 @@
  */
 
 #define ALT_MODULE_CLASS_keycode3 altera_avalon_pio
-#define KEYCODE3_BASE 0x20
+#define KEYCODE3_BASE 0x50
 #define KEYCODE3_BIT_CLEARING_EDGE_REGISTER 0
 #define KEYCODE3_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define KEYCODE3_CAPTURE 0
-#define KEYCODE3_DATA_WIDTH 16
+#define KEYCODE3_DATA_WIDTH 8
 #define KEYCODE3_DO_TEST_BENCH_WIRING 0
 #define KEYCODE3_DRIVEN_SIM_VALUE 0
 #define KEYCODE3_EDGE_TYPE "NONE"
@@ -286,6 +286,87 @@
 #define KEYCODE3_RESET_VALUE 0
 #define KEYCODE3_SPAN 16
 #define KEYCODE3_TYPE "altera_avalon_pio"
+
+
+/*
+ * keycode4 configuration
+ *
+ */
+
+#define ALT_MODULE_CLASS_keycode4 altera_avalon_pio
+#define KEYCODE4_BASE 0x40
+#define KEYCODE4_BIT_CLEARING_EDGE_REGISTER 0
+#define KEYCODE4_BIT_MODIFYING_OUTPUT_REGISTER 0
+#define KEYCODE4_CAPTURE 0
+#define KEYCODE4_DATA_WIDTH 8
+#define KEYCODE4_DO_TEST_BENCH_WIRING 0
+#define KEYCODE4_DRIVEN_SIM_VALUE 0
+#define KEYCODE4_EDGE_TYPE "NONE"
+#define KEYCODE4_FREQ 50000000
+#define KEYCODE4_HAS_IN 0
+#define KEYCODE4_HAS_OUT 1
+#define KEYCODE4_HAS_TRI 0
+#define KEYCODE4_IRQ -1
+#define KEYCODE4_IRQ_INTERRUPT_CONTROLLER_ID -1
+#define KEYCODE4_IRQ_TYPE "NONE"
+#define KEYCODE4_NAME "/dev/keycode4"
+#define KEYCODE4_RESET_VALUE 0
+#define KEYCODE4_SPAN 16
+#define KEYCODE4_TYPE "altera_avalon_pio"
+
+
+/*
+ * keycode5 configuration
+ *
+ */
+
+#define ALT_MODULE_CLASS_keycode5 altera_avalon_pio
+#define KEYCODE5_BASE 0x30
+#define KEYCODE5_BIT_CLEARING_EDGE_REGISTER 0
+#define KEYCODE5_BIT_MODIFYING_OUTPUT_REGISTER 0
+#define KEYCODE5_CAPTURE 0
+#define KEYCODE5_DATA_WIDTH 8
+#define KEYCODE5_DO_TEST_BENCH_WIRING 0
+#define KEYCODE5_DRIVEN_SIM_VALUE 0
+#define KEYCODE5_EDGE_TYPE "NONE"
+#define KEYCODE5_FREQ 50000000
+#define KEYCODE5_HAS_IN 0
+#define KEYCODE5_HAS_OUT 1
+#define KEYCODE5_HAS_TRI 0
+#define KEYCODE5_IRQ -1
+#define KEYCODE5_IRQ_INTERRUPT_CONTROLLER_ID -1
+#define KEYCODE5_IRQ_TYPE "NONE"
+#define KEYCODE5_NAME "/dev/keycode5"
+#define KEYCODE5_RESET_VALUE 0
+#define KEYCODE5_SPAN 16
+#define KEYCODE5_TYPE "altera_avalon_pio"
+
+
+/*
+ * keycode6 configuration
+ *
+ */
+
+#define ALT_MODULE_CLASS_keycode6 altera_avalon_pio
+#define KEYCODE6_BASE 0x20
+#define KEYCODE6_BIT_CLEARING_EDGE_REGISTER 0
+#define KEYCODE6_BIT_MODIFYING_OUTPUT_REGISTER 0
+#define KEYCODE6_CAPTURE 0
+#define KEYCODE6_DATA_WIDTH 8
+#define KEYCODE6_DO_TEST_BENCH_WIRING 0
+#define KEYCODE6_DRIVEN_SIM_VALUE 0
+#define KEYCODE6_EDGE_TYPE "NONE"
+#define KEYCODE6_FREQ 50000000
+#define KEYCODE6_HAS_IN 0
+#define KEYCODE6_HAS_OUT 1
+#define KEYCODE6_HAS_TRI 0
+#define KEYCODE6_IRQ -1
+#define KEYCODE6_IRQ_INTERRUPT_CONTROLLER_ID -1
+#define KEYCODE6_IRQ_TYPE "NONE"
+#define KEYCODE6_NAME "/dev/keycode6"
+#define KEYCODE6_RESET_VALUE 0
+#define KEYCODE6_SPAN 16
+#define KEYCODE6_TYPE "altera_avalon_pio"
 
 
 /*
@@ -323,7 +404,7 @@
  */
 
 #define ALT_MODULE_CLASS_otg_hpi_address altera_avalon_pio
-#define OTG_HPI_ADDRESS_BASE 0x90
+#define OTG_HPI_ADDRESS_BASE 0xc0
 #define OTG_HPI_ADDRESS_BIT_CLEARING_EDGE_REGISTER 0
 #define OTG_HPI_ADDRESS_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define OTG_HPI_ADDRESS_CAPTURE 0
@@ -350,7 +431,7 @@
  */
 
 #define ALT_MODULE_CLASS_otg_hpi_cs altera_avalon_pio
-#define OTG_HPI_CS_BASE 0x50
+#define OTG_HPI_CS_BASE 0x80
 #define OTG_HPI_CS_BIT_CLEARING_EDGE_REGISTER 0
 #define OTG_HPI_CS_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define OTG_HPI_CS_CAPTURE 0
@@ -377,7 +458,7 @@
  */
 
 #define ALT_MODULE_CLASS_otg_hpi_data altera_avalon_pio
-#define OTG_HPI_DATA_BASE 0x80
+#define OTG_HPI_DATA_BASE 0xb0
 #define OTG_HPI_DATA_BIT_CLEARING_EDGE_REGISTER 0
 #define OTG_HPI_DATA_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define OTG_HPI_DATA_CAPTURE 0
@@ -404,7 +485,7 @@
  */
 
 #define ALT_MODULE_CLASS_otg_hpi_r altera_avalon_pio
-#define OTG_HPI_R_BASE 0x70
+#define OTG_HPI_R_BASE 0xa0
 #define OTG_HPI_R_BIT_CLEARING_EDGE_REGISTER 0
 #define OTG_HPI_R_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define OTG_HPI_R_CAPTURE 0
@@ -431,7 +512,7 @@
  */
 
 #define ALT_MODULE_CLASS_otg_hpi_reset altera_avalon_pio
-#define OTG_HPI_RESET_BASE 0x40
+#define OTG_HPI_RESET_BASE 0x70
 #define OTG_HPI_RESET_BIT_CLEARING_EDGE_REGISTER 0
 #define OTG_HPI_RESET_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define OTG_HPI_RESET_CAPTURE 0
@@ -458,7 +539,7 @@
  */
 
 #define ALT_MODULE_CLASS_otg_hpi_w altera_avalon_pio
-#define OTG_HPI_W_BASE 0x60
+#define OTG_HPI_W_BASE 0x90
 #define OTG_HPI_W_BIT_CLEARING_EDGE_REGISTER 0
 #define OTG_HPI_W_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define OTG_HPI_W_CAPTURE 0
@@ -524,7 +605,7 @@
  */
 
 #define ALT_MODULE_CLASS_sdram_pll altpll
-#define SDRAM_PLL_BASE 0xb0
+#define SDRAM_PLL_BASE 0xe0
 #define SDRAM_PLL_IRQ -1
 #define SDRAM_PLL_IRQ_INTERRUPT_CONTROLLER_ID -1
 #define SDRAM_PLL_NAME "/dev/sdram_pll"
@@ -538,13 +619,13 @@
  */
 
 #define ALT_MODULE_CLASS_sysid_qsys_0 altera_avalon_sysid_qsys
-#define SYSID_QSYS_0_BASE 0xc8
+#define SYSID_QSYS_0_BASE 0xf8
 #define SYSID_QSYS_0_ID 0
 #define SYSID_QSYS_0_IRQ -1
 #define SYSID_QSYS_0_IRQ_INTERRUPT_CONTROLLER_ID -1
 #define SYSID_QSYS_0_NAME "/dev/sysid_qsys_0"
 #define SYSID_QSYS_0_SPAN 8
-#define SYSID_QSYS_0_TIMESTAMP 1639213594
+#define SYSID_QSYS_0_TIMESTAMP 1639551082
 #define SYSID_QSYS_0_TYPE "altera_avalon_sysid_qsys"
 
 #endif /* __SYSTEM_H_ */

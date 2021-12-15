@@ -6,7 +6,7 @@ def get_dominant_colors(infile):
     # 缩小图片，否则计算机压力太大
     small_image = image.resize((80, 80))
     result = small_image.convert(
-        "P", palette=Image.ADAPTIVE, colors=256
+        "P", palette=Image.ADAPTIVE, colors=15
     )  
 	# 7个主要颜色的图像
     # 找到主要的颜色
@@ -14,7 +14,7 @@ def get_dominant_colors(infile):
     color_counts = sorted(result.getcolors(), reverse=True)
     colors = list()
     colors_num = len(color_counts)
-    print(color_counts)
+    # print(color_counts)
     for i in range(colors_num):
         palette_index = color_counts[i][1]
         dominant_color = palette[palette_index * 3 : palette_index * 3 + 3]

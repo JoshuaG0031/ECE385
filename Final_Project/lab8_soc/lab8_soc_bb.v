@@ -4,6 +4,9 @@ module lab8_soc (
 	keycode1_export,
 	keycode2_export,
 	keycode3_export,
+	keycode4_export,
+	keycode5_export,
+	keycode6_export,
 	otg_hpi_address_export,
 	otg_hpi_cs_export,
 	otg_hpi_data_in_port,
@@ -21,15 +24,15 @@ module lab8_soc (
 	sdram_wire_dq,
 	sdram_wire_dqm,
 	sdram_wire_ras_n,
-	sdram_wire_we_n,
-	keycode4_export,
-	keycode5_export,
-	keycode6_export);	
+	sdram_wire_we_n);	
 
 	input		clk_clk;
 	output	[7:0]	keycode1_export;
 	output	[7:0]	keycode2_export;
 	output	[7:0]	keycode3_export;
+	output	[7:0]	keycode4_export;
+	output	[7:0]	keycode5_export;
+	output	[7:0]	keycode6_export;
 	output	[1:0]	otg_hpi_address_export;
 	output		otg_hpi_cs_export;
 	input	[15:0]	otg_hpi_data_in_port;
@@ -48,7 +51,4 @@ module lab8_soc (
 	output	[3:0]	sdram_wire_dqm;
 	output		sdram_wire_ras_n;
 	output		sdram_wire_we_n;
-	output	[7:0]	keycode4_export;
-	output	[7:0]	keycode5_export;
-	output	[7:0]	keycode6_export;
 endmodule

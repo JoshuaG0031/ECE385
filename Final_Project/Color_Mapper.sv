@@ -22,12 +22,21 @@ module  color_mapper ( input              is_Fireboy, is_Watergirl,
                      );
     
     logic [7:0] Red, Green, Blue;
-	 logic [23:0] pixel_color_Fireboy_still,pixel_color_Fireboy_left,pixel_color_Fireboy_right;
+	 //Fireboy images
+	 logic [23:0] pixel_color_Fireboy_still,pixel_color_Fireboy_left,pixel_color_Fireboy_right,
+						pixel_color_Fireboy_up,pixel_color_Fireboy_down,pixel_color_Fireboy_ru,
+						pixel_color_Fireboy_rd,pixel_color_Fireboy_lu,pixel_color_Fireboy_ld;
     logic [23:0] pixel_color;
 	 //sprite modules
 	 Fireboy_still Fireboy_still(.read_address(Fireboy_address),.pixel_color(pixel_color_Fireboy_still));
 	 Fireboy_left Fireboy_left(.read_address(Fireboy_address),.pixel_color(pixel_color_Fireboy_left));
 	 Fireboy_right Fireboy_right(.read_address(Fireboy_address),.pixel_color(pixel_color_Fireboy_right));
+	 Fireboy_up Fireboy_up(.read_address(Fireboy_address),.pixel_color(pixel_color_Fireboy_up));
+	 Fireboy_down Fireboy_down(.read_address(Fireboy_address),.pixel_color(pixel_color_Fireboy_down));
+	 Fireboy_ru Fireboy_ru(.read_address(Fireboy_address),.pixel_color(pixel_color_Fireboy_ru));
+	 Fireboy_rd Fireboy_rd(.read_address(Fireboy_address),.pixel_color(pixel_color_Fireboy_rd));
+	 Fireboy_lu Fireboy_lu(.read_address(Fireboy_address),.pixel_color(pixel_color_Fireboy_lu));
+	 Fireboy_ld Fireboy_ld(.read_address(Fireboy_address),.pixel_color(pixel_color_Fireboy_ld));
 	 
     // Output colors to VGA
     assign VGA_R = Red;
@@ -41,14 +50,32 @@ module  color_mapper ( input              is_Fireboy, is_Watergirl,
 		  if (is_Fireboy) 
         begin
 				case(Fireboy_direction)
-					4'd4:begin
-						pixel_color=pixel_color_Fireboy_still;
+					4'd0:begin
+						pixel_color=pixel_color_Fireboy_lu;
+						end
+					4'd1:begin
+						pixel_color=pixel_color_Fireboy_up;
+						end
+					4'd2:begin
+						pixel_color=pixel_color_Fireboy_ru;
 						end
 					4'd3:begin
 						pixel_color=pixel_color_Fireboy_left;
 						end
+					4'd4:begin
+						pixel_color=pixel_color_Fireboy_still;
+						end
 					4'd5:begin
 						pixel_color=pixel_color_Fireboy_right;
+						end
+					4'd6:begin
+						pixel_color=pixel_color_Fireboy_ld;
+						end
+					4'd7:begin
+						pixel_color=pixel_color_Fireboy_down;
+						end
+					4'd8:begin
+						pixel_color=pixel_color_Fireboy_rd;
 						end
 					default:
 						begin
