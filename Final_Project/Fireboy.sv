@@ -5,7 +5,7 @@ module  Fireboy ( input      Clk,                // 50 MHz clock
                input         w_key, a_key, d_key,
 					output logic  is_Fireboy,           // Whether current pixel belongs to Fireboy
 					output logic [11:0] Fireboy_address,	// return the character pixel adress for ROM inference
-					output logic [3:0] Fireboy_direction
+					output logic [3:0] Fireboy_direction	//from 0-8, denote 9 moving direction: from left to right and from top to bottom. 
               );
     
     parameter [9:0] Fireboy_X_Center = 10'd320;  // Center position on the X axis
@@ -16,9 +16,9 @@ module  Fireboy ( input      Clk,                // 50 MHz clock
     parameter [9:0] Fireboy_Y_Max = 10'd479;     // Bottommost point on the Y axis
     parameter [9:0] Fireboy_X_Step = 10'd1;      // Step size on the X axis
     parameter [9:0] Fireboy_Y_Step = 10'd1;      // Step size on the Y axis
-	 parameter [9:0] Fireboy_X_Size = 10'd30; 
-	 parameter [9:0] Fireboy_Y_Size = 10'd30; 
-	 parameter [9:0] initial_motion = 10'd10; 
+	 parameter [9:0] Fireboy_X_Size = 10'd30; 	// size of Fireboy on the X axis
+	 parameter [9:0] Fireboy_Y_Size = 10'd30; 	// size of Fireboy on the Y axis
+	 parameter [9:0] initial_motion = 10'd10; 	// the initial velocity given when jumping
     
     logic [9:0] Fireboy_X_Pos, Fireboy_X_Motion, Fireboy_Y_Pos, Fireboy_Y_Motion;
     logic [9:0] Fireboy_X_Pos_in, Fireboy_X_Motion_in, Fireboy_Y_Pos_in, Fireboy_Y_Motion_in;
@@ -65,53 +65,44 @@ module  Fireboy ( input      Clk,                // 50 MHz clock
         // Update position and motion only at rising edge of frame clock
         if (frame_clk_rising_edge)
         begin
+				// y-axis
 				if (on_ground) //on ground
 					begin
 						if(w_key)
 							begin
-								Fireboy_Y_Motion_in = (~initial_motion)+1'b1;
+								Fireboy_Y_Motion_in = (~initial_motion)+1'b1; 	//give initial velocity to Fireboy
 								on_ground_in =1'b0;			//jump
 							end
-						if (a_key && ~d_key)	//press a (left)
-							begin
-								Fireboy_X_Motion_in = (~(Fireboy_X_Step)+1'b1);
-							end
-						else if (d_key && ~a_key) // press d (right)
-							begin	
-								Fireboy_X_Motion_in = Fireboy_X_Step;
-							end	
-						else if (~d_key && ~a_key) // not press a or d (still)
-							begin
-								Fireboy_X_Motion_in = 1'b0;	
-							end
 					end
-				
 				else //not on ground
 				begin
-					Fireboy_Y_Motion_in = Fireboy_Y_Motion+1'b1;
-					if (a_key && ~d_key)	//press a (left)
-						begin
-							Fireboy_X_Motion_in = (~(Fireboy_X_Step)+1'b1);
-						end
-					else if (d_key && ~a_key) // press d (right)
-						begin	
-							Fireboy_X_Motion_in = Fireboy_X_Step;
-						end	
-					else if (~d_key && ~a_key) // not press a or d (still)
-						begin
-							Fireboy_X_Motion_in = 10'b0;	
-						end
+					Fireboy_Y_Motion_in = Fireboy_Y_Motion+1'b1;	//set acceleration for Fireboy
 				end
+				
+				// x-axis
+				if (a_key && ~d_key)	//press a (left)
+					begin
+						Fireboy_X_Motion_in = (~(Fireboy_X_Step)+1'b1);
+					end
+				else if (d_key && ~a_key) // press d (right)
+					begin	
+						Fireboy_X_Motion_in = Fireboy_X_Step;
+					end	
+				else if (~d_key && ~a_key) // not press a or d (still)
+					begin
+						Fireboy_X_Motion_in = 10'b0;	
+					end
 				
 				if( Fireboy_Y_Pos + Fireboy_Y_Size + Fireboy_Y_Motion_in >= Fireboy_Y_Max )  // Fireboy will reach out of bottom boundary
 					begin
-						Fireboy_Y_Motion_in = Fireboy_Y_Max-Fireboy_Y_Pos-Fireboy_Y_Size;  
+						Fireboy_Y_Motion_in = Fireboy_Y_Max+(~Fireboy_Y_Pos+1'b1)+(~Fireboy_Y_Size+1'b1);  //set the motion to drop on the ground perfectly
 					end
 				else if (Fireboy_Y_Pos + Fireboy_Y_Motion_in <= Fireboy_Y_Min + Fireboy_Y_Size ) // Fireboy will reach out of top boundary
 					begin
-						Fireboy_Y_Motion_in = Fireboy_Y_Min-Fireboy_Y_Pos+Fireboy_Y_Size; 
+						Fireboy_Y_Motion_in = Fireboy_Y_Min+(~Fireboy_Y_Pos+1'b1)+Fireboy_Y_Size; //set the motion in order not to go through the ceiling
 					end
 				
+				// y-axis boundary
 				if( Fireboy_Y_Pos + Fireboy_Y_Size >= Fireboy_Y_Max && ~w_key)  // Fireboy is at the bottom edge, STOP!
 					begin
 						Fireboy_Y_Motion_in = 10'h0;  
@@ -121,7 +112,9 @@ module  Fireboy ( input      Clk,                // 50 MHz clock
 					begin
 						Fireboy_Y_Motion_in = 10'h1;
 					end
-				else if( Fireboy_X_Pos + Fireboy_X_Size >= Fireboy_X_Max && ~a_key) // Fireboy is at the rightest edge
+				
+				// x-axis boundary
+				if( Fireboy_X_Pos + Fireboy_X_Size >= Fireboy_X_Max && ~a_key) // Fireboy is at the rightest edge
 					begin
 						Fireboy_X_Motion_in = 10'h0;	
 					end
@@ -147,7 +140,7 @@ module  Fireboy ( input      Clk,                // 50 MHz clock
 							end
 						
 					end
-				else if (Fireboy_X_Motion_in[9] == 1'b0) // right
+				else if (Fireboy_X_Motion_in[9] == 1'b0) // moving right
 					begin
 						if (Fireboy_Y_Motion_in == 10'h0)
 							begin
@@ -162,7 +155,7 @@ module  Fireboy ( input      Clk,                // 50 MHz clock
 								Fireboy_direction_in=4'd2;
 							end
 					end
-				else if (Fireboy_X_Motion_in[9] == 1'b1)	//left
+				else if (Fireboy_X_Motion_in[9] == 1'b1)	// moving left
 					begin
 						if (Fireboy_Y_Motion_in == 10'h0)
 							begin
