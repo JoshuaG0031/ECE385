@@ -123,7 +123,7 @@ module  Fireboy ( input      Clk,                // 50 MHz clock
 						Fireboy_X_Motion_in = 10'h0;	
 					end
 				
-				
+				//decide direction by motion's signs
 				if (Fireboy_X_Motion_in == 10'h0)	//x_motion = 0
 					begin
 						if (Fireboy_Y_Motion_in == 10'h0)
@@ -197,6 +197,6 @@ module  Fireboy ( input      Clk,                // 50 MHz clock
 			
 
 		else
-			Fireboy_address = 9'b0;
+			Fireboy_address = 9'b0; //don't care, it won't be used
 	end 
 endmodule
