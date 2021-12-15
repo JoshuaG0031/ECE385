@@ -164,9 +164,9 @@ module lab8( input               CLOCK_50,
                                 .VGA_G(VGA_G),
                                 .VGA_B(VGA_B)
 										  );
-//    AudioController AC(.CLK(CLOCK_50),.Reset(~Reset_h),.FL_ADDR(FL_ADDR),.FL_DQ(FL_DQ),.FL_OE_N(FL_OE_N),.FL_WP_N(FL_WP_N),
-//							  .FL_RST_N(FL_RET_N),.FL_WE_N(FL_WE_N),.FL_CE_N(FL_CE_N),.AUD_DACLRCK(AUD_DACLRCK),.AUD_BCLK(AUD_BCLK),
-//							  .AUD_DACDAT(AUD_DACDAT),.AUD_XCK(AUD_XCK),.I2C_SCLK(I2C_SCLK),.I2C_SDAT(I2C_SDAT));
+    AudioController AC(.CLK(CLOCK_50),.Reset(~Reset_h),.FL_ADDR(FL_ADDR),.FL_DQ(FL_DQ),.FL_OE_N(FL_OE_N),.FL_WP_N(FL_WP_N),
+							  .FL_RST_N(FL_RET_N),.FL_WE_N(FL_WE_N),.FL_CE_N(FL_CE_N),.AUD_DACLRCK(AUD_DACLRCK),.AUD_BCLK(AUD_BCLK),
+							  .AUD_DACDAT(AUD_DACDAT),.AUD_XCK(AUD_XCK),.I2C_SCLK(I2C_SCLK),.I2C_SDAT(I2C_SDAT));
 							  
 	 keycode_reader keycode_reader(.*);
 	 

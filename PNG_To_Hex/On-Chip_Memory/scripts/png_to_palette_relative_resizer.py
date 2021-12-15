@@ -24,7 +24,7 @@ print("\n---Copy the following code to the ROM module---\n")
 print("module", filename)
 print("(\n\t\tinput [",address_len,":0] read_address,\n\t\toutput logic [23:0] pixel_color\n);\n",sep="")
 print("logic [3:0] ram [0:",pix_num-1,"];",sep="")
-print("logic [23:0] palette [10:0];")
+print("logic [23:0] palette [",len(palette_hex)-1,":0];",sep="")
 for i in range(len(palette_hex)):
     print("assign palette[",i,"] = 24\'h",palette_hex[i][2:],";",sep='')
 print("assign pixel_color = palette[ram[read_address]];")
