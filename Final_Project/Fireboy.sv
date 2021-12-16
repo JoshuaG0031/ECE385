@@ -14,11 +14,11 @@ module  Fireboy ( input      Clk,                // 50 MHz clock
     parameter [9:0] Fireboy_X_Max = 10'd639;     // Rightmost point on the X axis
     parameter [9:0] Fireboy_Y_Min = 10'd0;       // Topmost point on the Y axis
     parameter [9:0] Fireboy_Y_Max = 10'd479;     // Bottommost point on the Y axis
-    parameter [9:0] Fireboy_X_Step = 10'd1;      // Step size on the X axis
+    parameter [9:0] Fireboy_X_Step = 10'd2;      // Step size on the X axis
     parameter [9:0] Fireboy_Y_Step = 10'd1;      // Step size on the Y axis
 	 parameter [9:0] Fireboy_X_Size = 10'd30; 	// size of Fireboy on the X axis
 	 parameter [9:0] Fireboy_Y_Size = 10'd30; 	// size of Fireboy on the Y axis
-	 parameter [9:0] initial_motion = 10'd10; 	// the initial velocity given when jumping
+	 parameter [9:0] initial_motion = 10'd15; 	// the initial velocity given when jumping
     
     logic [9:0] Fireboy_X_Pos, Fireboy_X_Motion, Fireboy_Y_Pos, Fireboy_Y_Motion;
     logic [9:0] Fireboy_X_Pos_in, Fireboy_X_Motion_in, Fireboy_Y_Pos_in, Fireboy_Y_Motion_in;
@@ -93,14 +93,14 @@ module  Fireboy ( input      Clk,                // 50 MHz clock
 						Fireboy_X_Motion_in = 10'b0;	
 					end
 				
-				if( Fireboy_Y_Pos + Fireboy_Y_Size + Fireboy_Y_Motion_in >= Fireboy_Y_Max )  // Fireboy will reach out of bottom boundary
-					begin
-						Fireboy_Y_Motion_in = Fireboy_Y_Max+(~Fireboy_Y_Pos+1'b1)+(~Fireboy_Y_Size+1'b1);  //set the motion to drop on the ground perfectly
-					end
-				else if (Fireboy_Y_Pos + Fireboy_Y_Motion_in <= Fireboy_Y_Min + Fireboy_Y_Size ) // Fireboy will reach out of top boundary
-					begin
-						Fireboy_Y_Motion_in = Fireboy_Y_Min+(~Fireboy_Y_Pos+1'b1)+Fireboy_Y_Size; //set the motion in order not to go through the ceiling
-					end
+//				if( Fireboy_Y_Pos + Fireboy_Y_Size + Fireboy_Y_Motion_in >= Fireboy_Y_Max )  // Fireboy will reach out of bottom boundary
+//					begin
+//						Fireboy_Y_Motion_in = Fireboy_Y_Max+(~Fireboy_Y_Pos+1'b1)+(~Fireboy_Y_Size+1'b1);  //set the motion to drop on the ground perfectly
+//					end
+//				else if (Fireboy_Y_Pos + Fireboy_Y_Motion_in <= Fireboy_Y_Min + Fireboy_Y_Size ) // Fireboy will reach out of top boundary
+//					begin
+//						Fireboy_Y_Motion_in = Fireboy_Y_Min+(~Fireboy_Y_Pos+1'b1)+Fireboy_Y_Size; //set the motion in order not to go through the ceiling
+//					end
 				
 				// y-axis boundary
 				if( Fireboy_Y_Pos + Fireboy_Y_Size >= Fireboy_Y_Max && ~w_key)  // Fireboy is at the bottom edge, STOP!
@@ -173,6 +173,16 @@ module  Fireboy ( input      Clk,                // 50 MHz clock
 					
 				Fireboy_X_Pos_in = Fireboy_X_Pos + Fireboy_X_Motion;
             Fireboy_Y_Pos_in = Fireboy_Y_Pos + Fireboy_Y_Motion;
+				
+				if (Fireboy_Y_Pos_in + Fireboy_Y_Size >= Fireboy_Y_Max)// Fireboy will reach out of bottom boundary
+					begin
+						Fireboy_Y_Pos_in = Fireboy_Y_Max+(~Fireboy_Y_Size+1'b1);  //set the position to drop on the ground perfectly
+					end
+				else if (Fireboy_Y_Pos <= Fireboy_Y_Min + Fireboy_Y_Size ) // Fireboy will reach out of top boundary
+					begin
+						Fireboy_Y_Pos_in = Fireboy_Y_Min+Fireboy_Y_Size; //set the motion in order not to go through the ceiling
+					end
+				
         end
 	end
 	

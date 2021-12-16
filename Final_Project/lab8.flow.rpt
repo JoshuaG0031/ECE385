@@ -1,6 +1,6 @@
 Flow report for lab8
-Wed Dec 15 19:53:39 2021
-Quartus Prime Version 19.1.0 Build 670 09/22/2019 SJ Lite Edition
+Thu Dec 16 18:53:29 2021
+Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
 ---------------------
@@ -21,9 +21,9 @@ Quartus Prime Version 19.1.0 Build 670 09/22/2019 SJ Lite Edition
 ----------------
 ; Legal Notice ;
 ----------------
-Copyright (C) 2019  Intel Corporation. All rights reserved.
+Copyright (C) 2018  Intel Corporation. All rights reserved.
 Your use of Intel Corporation's design tools, logic functions 
-and other software and tools, and any partner logic 
+and other software and tools, and its AMPP partner logic 
 functions, and any output files from any of the foregoing 
 (including device programming or simulation files), and any 
 associated documentation or information are expressly subject 
@@ -33,30 +33,29 @@ the Intel FPGA IP License Agreement, or other applicable license
 agreement, including, without limitation, that your use is for
 the sole purpose of programming logic devices manufactured by
 Intel and sold by Intel or its authorized distributors.  Please
-refer to the applicable agreement for further details, at
-https://fpgasoftware.intel.com/eula.
+refer to the applicable agreement for further details.
 
 
 
 +----------------------------------------------------------------------------------+
 ; Flow Summary                                                                     ;
 +------------------------------------+---------------------------------------------+
-; Flow Status                        ; Successful - Wed Dec 15 19:53:38 2021       ;
-; Quartus Prime Version              ; 19.1.0 Build 670 09/22/2019 SJ Lite Edition ;
+; Flow Status                        ; Successful - Thu Dec 16 18:53:29 2021       ;
+; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                      ; lab8                                        ;
 ; Top-level Entity Name              ; lab8                                        ;
 ; Family                             ; Cyclone IV E                                ;
 ; Device                             ; EP4CE115F29C7                               ;
 ; Timing Models                      ; Final                                       ;
-; Total logic elements               ; 6,843                                       ;
-;     Total combinational functions  ; 5,791                                       ;
-;     Dedicated logic registers      ; 2,425                                       ;
-; Total registers                    ; 2425                                        ;
-; Total pins                         ; 220                                         ;
+; Total logic elements               ; 6,394 / 114,480 ( 6 % )                     ;
+;     Total combinational functions  ; 5,725 / 114,480 ( 5 % )                     ;
+;     Dedicated logic registers      ; 2,365 / 114,480 ( 2 % )                     ;
+; Total registers                    ; 2484                                        ;
+; Total pins                         ; 220 / 529 ( 42 % )                          ;
 ; Total virtual pins                 ; 0                                           ;
-; Total memory bits                  ; 11,392                                      ;
-; Embedded Multiplier 9-bit elements ; 0                                           ;
-; Total PLLs                         ; 3                                           ;
+; Total memory bits                  ; 11,392 / 3,981,312 ( < 1 % )                ;
+; Embedded Multiplier 9-bit elements ; 0 / 532 ( 0 % )                             ;
+; Total PLLs                         ; 3 / 4 ( 75 % )                              ;
 +------------------------------------+---------------------------------------------+
 
 
@@ -65,7 +64,7 @@ https://fpgasoftware.intel.com/eula.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 12/15/2021 19:52:35 ;
+; Start date & time ; 12/16/2021 18:51:24 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; lab8                ;
 +-------------------+---------------------+
@@ -76,7 +75,7 @@ https://fpgasoftware.intel.com/eula.
 +--------------------------------------+------------------------------------------------------------+---------------+-------------------+----------------+
 ; Assignment Name                      ; Value                                                      ; Default Value ; Entity Name       ; Section Id     ;
 +--------------------------------------+------------------------------------------------------------+---------------+-------------------+----------------+
-; COMPILER_SIGNATURE_ID                ; 118933440281863.163956915538180                            ; --            ; --                ; --             ;
+; COMPILER_SIGNATURE_ID                ; 4681959497061.163965188305240                              ; --            ; --                ; --             ;
 ; EDA_DESIGN_INSTANCE_NAME             ; NA                                                         ; --            ; --                ; testbench      ;
 ; EDA_NATIVELINK_SIMULATION_TEST_BENCH ; testbench                                                  ; --            ; --                ; eda_simulation ;
 ; EDA_OUTPUT_DATA_FORMAT               ; Systemverilog Hdl                                          ; --            ; --                ; eda_simulation ;
@@ -118,8 +117,13 @@ https://fpgasoftware.intel.com/eula.
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name          ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis ; 00:01:01     ; 1.0                     ; 5002 MB             ; 00:01:14                           ;
-; Total                ; 00:01:01     ; --                      ; --                  ; 00:01:14                           ;
+; Analysis & Synthesis ; 00:01:01     ; 1.0                     ; 5020 MB             ; 00:01:25                           ;
+; Fitter               ; 00:00:27     ; 1.1                     ; 6147 MB             ; 00:00:50                           ;
+; Assembler            ; 00:00:04     ; 1.0                     ; 4708 MB             ; 00:00:04                           ;
+; Power Analyzer       ; 00:00:10     ; 1.1                     ; 4998 MB             ; 00:00:11                           ;
+; Timing Analyzer      ; 00:00:05     ; 1.2                     ; 4960 MB             ; 00:00:05                           ;
+; EDA Netlist Writer   ; 00:00:08     ; 1.0                     ; 4753 MB             ; 00:00:08                           ;
+; Total                ; 00:01:55     ; --                      ; --                  ; 00:02:43                           ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 
@@ -128,7 +132,12 @@ https://fpgasoftware.intel.com/eula.
 +----------------------+------------------+------------+------------+----------------+
 ; Module Name          ; Machine Hostname ; OS Name    ; OS Version ; Processor type ;
 +----------------------+------------------+------------+------------+----------------+
-; Analysis & Synthesis ; DESKTOP-6I2CKSR  ; Windows 10 ; 10.0       ; x86_64         ;
+; Analysis & Synthesis ; DESKTOP-S113P0H  ; Windows 10 ; 10.0       ; x86_64         ;
+; Fitter               ; DESKTOP-S113P0H  ; Windows 10 ; 10.0       ; x86_64         ;
+; Assembler            ; DESKTOP-S113P0H  ; Windows 10 ; 10.0       ; x86_64         ;
+; Power Analyzer       ; DESKTOP-S113P0H  ; Windows 10 ; 10.0       ; x86_64         ;
+; Timing Analyzer      ; DESKTOP-S113P0H  ; Windows 10 ; 10.0       ; x86_64         ;
+; EDA Netlist Writer   ; DESKTOP-S113P0H  ; Windows 10 ; 10.0       ; x86_64         ;
 +----------------------+------------------+------------+------------+----------------+
 
 
@@ -136,6 +145,11 @@ https://fpgasoftware.intel.com/eula.
 ; Flow Log ;
 ------------
 quartus_map --read_settings_files=on --write_settings_files=off lab8 -c lab8
+quartus_fit --read_settings_files=off --write_settings_files=off lab8 -c lab8
+quartus_asm --read_settings_files=off --write_settings_files=off lab8 -c lab8
+quartus_pow --read_settings_files=off --write_settings_files=off lab8 -c lab8
+quartus_sta lab8 -c lab8
+quartus_eda --read_settings_files=off --write_settings_files=off lab8 -c lab8
 
 
 
