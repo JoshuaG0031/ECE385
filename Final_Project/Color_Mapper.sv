@@ -14,19 +14,26 @@
 //-------------------------------------------------------------------------
 
 // color_mapper: Decide which color to be output to VGA for each pixel.
-module  color_mapper ( input              is_Fireboy, is_Watergirl,         
+module  color_mapper ( input              is_Fireboy, is_Watergirl, is_Wall ,       
 							  input 			[3:0] Fireboy_direction,Watergirl_direction,
 							  input        [11:0]Fireboy_address,Watergirl_address,
+							  input			[13:0]Wall_address,
                        input        [9:0] DrawX, DrawY,       // Current pixel coordinates
                        output logic [7:0] VGA_R, VGA_G, VGA_B // VGA RGB output
                      );
     
     logic [7:0] Red, Green, Blue;
+	 //background and wall images
+	 logic [23:0] pixel_color_Background, pixel_color_Wall;
 	 //Fireboy images
 	 logic [23:0] pixel_color_Fireboy_still,pixel_color_Fireboy_left,pixel_color_Fireboy_right,
 						pixel_color_Fireboy_up,pixel_color_Fireboy_down,pixel_color_Fireboy_ru,
 						pixel_color_Fireboy_rd,pixel_color_Fireboy_lu,pixel_color_Fireboy_ld;
     logic [23:0] pixel_color;
+	 //background and wall modules
+	 Background Background(.read_address((DrawX % 75) + (DrawY % 75) * 75),.pixel_color(pixel_color_Background));
+	 Wall Wall(.read_address(Wall_address),.pixel_color(pixel_color_Wall));
+
 	 //sprite modules
 	 Fireboy_still Fireboy_still(.read_address(Fireboy_address),.pixel_color(pixel_color_Fireboy_still));
 	 Fireboy_left Fireboy_left(.read_address(Fireboy_address),.pixel_color(pixel_color_Fireboy_left));
@@ -46,7 +53,7 @@ module  color_mapper ( input              is_Fireboy, is_Watergirl,
     // Assign color based on is_Fireboy signal
     always_comb
     begin
-		  pixel_color = 24'hffffff; //background color
+		  pixel_color = pixel_color_Background; //background color
 		  if (is_Fireboy) 
         begin
 				case(Fireboy_direction)
@@ -80,10 +87,16 @@ module  color_mapper ( input              is_Fireboy, is_Watergirl,
 					default:
 						begin
 						end
-				endcase
-				if (pixel_color == 24'h800080)
-					pixel_color = 24'hffffff;
+				endcase		
+			if (pixel_color == 24'h800080)
+				pixel_color = pixel_color_Background;
 			end
+			
+			if (is_Wall) 
+			begin
+				pixel_color=pixel_color_Wall;
+			end
+			
 			Red = pixel_color[23:16];
 			Green = pixel_color[15:8];
 			Blue = pixel_color[7:0];

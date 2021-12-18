@@ -24,14 +24,12 @@ pix = im.load()
 pix_freqs = Counter([pix[x, y] for x in range(im.size[0]) for y in range(im.size[1])])
 pix_freqs_sorted = sorted(pix_freqs.items(), key=lambda x: x[1])
 pix_freqs_sorted.reverse()
-print(pix)
 outImg = Image.new('RGB', im.size, color='white')
 outFile = open("../sprite_bytes/" + filename + '.txt', 'w')
 i = 0
 for y in range(im.size[1]):
     for x in range(im.size[0]):
         pixel = im.getpixel((x,y))
-        print(pixel)
         if(pixel[3] < 200):
             outImg.putpixel((x,y), palette_rgb[0])
             outFile.write("%x\n" %(0))

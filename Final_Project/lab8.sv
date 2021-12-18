@@ -71,8 +71,10 @@ module lab8( input               CLOCK_50,
 	 
 	 logic [11:0] Fireboy_address,Watergirl_address;
 	 logic [3:0] Fireboy_direction,Watergirl_direction;
-	 logic is_Fireboy, is_Watergirl;
+	 logic is_Fireboy, is_Watergirl, is_Wall;
     
+	 
+	 logic [13:0] Wall_address;
     // Interface between NIOS II and EZ-OTG chip
     hpi_io_intf hpi_io_inst(
                             .Clk(Clk),
@@ -153,12 +155,16 @@ module lab8( input               CLOCK_50,
 								.Fireboy_direction(Fireboy_direction)
 								);
     
+	 Map Map(.DrawX(DrawX),.DrawY(DrawY),.Wall_address(Wall_address),.is_Wall(is_Wall),.x_bias(),.y_bias());
+	 
     color_mapper color_instance(
 										  .is_Fireboy(is_Fireboy),
 										  .is_Watergirl(is_Watergirl),
+										  .is_Wall(is_Wall),
 										  .Fireboy_direction(Fireboy_direction),.Watergirl_direction(Watergirl_direction),
 										  .Fireboy_address(Fireboy_address),.Watergirl_address(Watergirl_address),
-                                .DrawX(DrawX),
+                                .Wall_address(Wall_address),
+										  .DrawX(DrawX),
                                 .DrawY(DrawY),
                                 .VGA_R(VGA_R),
                                 .VGA_G(VGA_G),

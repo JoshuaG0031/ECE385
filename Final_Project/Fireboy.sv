@@ -15,7 +15,7 @@ module  Fireboy ( input      Clk,                // 50 MHz clock
     parameter [9:0] Fireboy_Y_Min = 10'd0;       // Topmost point on the Y axis
     parameter [9:0] Fireboy_Y_Max = 10'd479;     // Bottommost point on the Y axis
     parameter [9:0] Fireboy_X_Step = 10'd2;      // Step size on the X axis
-    parameter [9:0] Fireboy_Y_Step = 10'd1;      // Step size on the Y axis
+	 
 	 parameter [9:0] Fireboy_X_Size = 10'd30; 	// size of Fireboy on the X axis
 	 parameter [9:0] Fireboy_Y_Size = 10'd30; 	// size of Fireboy on the Y axis
 	 parameter [9:0] initial_motion = 10'd15; 	// the initial velocity given when jumping
@@ -24,6 +24,18 @@ module  Fireboy ( input      Clk,                // 50 MHz clock
     logic [9:0] Fireboy_X_Pos_in, Fireboy_X_Motion_in, Fireboy_Y_Pos_in, Fireboy_Y_Motion_in;
 	 logic [3:0] Fireboy_direction_in;
 	 logic on_ground,on_ground_in;
+	 logic is_Wall_up,is_Wall_down,is_Wall_left,is_Wall_right;
+	 logic [9:0] x_bias_left, x_bias_right, y_bias_up, y_bias_down;
+	 
+	 Map Wall_up(.DrawX(Fireboy_X_Pos_in),.DrawY(Fireboy_Y_Pos_in - Fireboy_Y_Size),
+						.Wall_address(),.is_Wall(is_Wall_up),.x_bias(),.y_bias(y_bias_up));
+	 Map Wall_down(.DrawX(Fireboy_X_Pos_in),.DrawY(Fireboy_Y_Pos_in + Fireboy_Y_Size),
+						.Wall_address(),.is_Wall(is_Wall_down),.x_bias(),.y_bias(y_bias_down));
+	 Map Wall_left(.DrawX(Fireboy_X_Pos_in - Fireboy_X_Size),.DrawY(Fireboy_Y_Pos_in),
+						.Wall_address(),.is_Wall(is_Wall_left),.x_bias(x_bias_left),.y_bias());
+	 Map Wall_right(.DrawX(Fireboy_X_Pos_in + Fireboy_X_Size),.DrawY(Fireboy_Y_Pos_in),
+						.Wall_address(),.is_Wall(is_Wall_right),.x_bias(x_bias_right),.y_bias());
+	 
 	 // Detect rising edge of frame_clk
     logic frame_clk_delayed, frame_clk_rising_edge;
     always_ff @ (posedge Clk) begin
@@ -40,7 +52,7 @@ module  Fireboy ( input      Clk,                // 50 MHz clock
             Fireboy_X_Motion <= 10'd0;
             Fireboy_Y_Motion <= 10'd0;
 				Fireboy_direction <= 4'd4;
-				on_ground <= 1'b0;
+				on_ground <= 1'b1;
         end
         else
         begin
@@ -93,35 +105,26 @@ module  Fireboy ( input      Clk,                // 50 MHz clock
 						Fireboy_X_Motion_in = 10'b0;	
 					end
 				
-//				if( Fireboy_Y_Pos + Fireboy_Y_Size + Fireboy_Y_Motion_in >= Fireboy_Y_Max )  // Fireboy will reach out of bottom boundary
+//				// y-axis boundary
+//				if( Fireboy_Y_Pos + Fireboy_Y_Size >= Fireboy_Y_Max && ~w_key)  // Fireboy is at the bottom edge, STOP!
 //					begin
-//						Fireboy_Y_Motion_in = Fireboy_Y_Max+(~Fireboy_Y_Pos+1'b1)+(~Fireboy_Y_Size+1'b1);  //set the motion to drop on the ground perfectly
+//						Fireboy_Y_Motion_in = 10'h0;  
+//						on_ground_in = 1'b1;
 //					end
-//				else if (Fireboy_Y_Pos + Fireboy_Y_Motion_in <= Fireboy_Y_Min + Fireboy_Y_Size ) // Fireboy will reach out of top boundary
+//            else if ( Fireboy_Y_Pos <= Fireboy_Y_Min + Fireboy_Y_Size )  // Fireboy is at the top edge, Falling!
 //					begin
-//						Fireboy_Y_Motion_in = Fireboy_Y_Min+(~Fireboy_Y_Pos+1'b1)+Fireboy_Y_Size; //set the motion in order not to go through the ceiling
+//						Fireboy_Y_Motion_in = 10'h1;
 //					end
-				
-				// y-axis boundary
-				if( Fireboy_Y_Pos + Fireboy_Y_Size >= Fireboy_Y_Max && ~w_key)  // Fireboy is at the bottom edge, STOP!
-					begin
-						Fireboy_Y_Motion_in = 10'h0;  
-						on_ground_in = 1'b1;
-					end
-            else if ( Fireboy_Y_Pos <= Fireboy_Y_Min + Fireboy_Y_Size )  // Fireboy is at the top edge, Falling!
-					begin
-						Fireboy_Y_Motion_in = 10'h1;
-					end
-				
-				// x-axis boundary
-				if( Fireboy_X_Pos + Fireboy_X_Size >= Fireboy_X_Max && ~a_key) // Fireboy is at the rightest edge
-					begin
-						Fireboy_X_Motion_in = 10'h0;	
-					end
-            else if ( Fireboy_X_Pos <= Fireboy_X_Min + Fireboy_X_Size && ~d_key) // Fireboy is at the leftest edge
-					begin
-						Fireboy_X_Motion_in = 10'h0;	
-					end
+//				
+//				// x-axis boundary
+//				if( Fireboy_X_Pos + Fireboy_X_Size >= Fireboy_X_Max && ~a_key) // Fireboy is at the rightest edge
+//					begin
+//						Fireboy_X_Motion_in = 10'h0;	
+//					end
+//            else if ( Fireboy_X_Pos <= Fireboy_X_Min + Fireboy_X_Size && ~d_key) // Fireboy is at the leftest edge
+//					begin
+//						Fireboy_X_Motion_in = 10'h0;	
+//					end
 				
 				//decide direction by motion's signs
 				if (Fireboy_X_Motion_in == 10'h0)	//x_motion = 0
@@ -174,15 +177,36 @@ module  Fireboy ( input      Clk,                // 50 MHz clock
 				Fireboy_X_Pos_in = Fireboy_X_Pos + Fireboy_X_Motion;
             Fireboy_Y_Pos_in = Fireboy_Y_Pos + Fireboy_Y_Motion;
 				
-				if (Fireboy_Y_Pos_in + Fireboy_Y_Size >= Fireboy_Y_Max)// Fireboy will reach out of bottom boundary
-					begin
-						Fireboy_Y_Pos_in = Fireboy_Y_Max+(~Fireboy_Y_Size+1'b1);  //set the position to drop on the ground perfectly
-					end
-				else if (Fireboy_Y_Pos <= Fireboy_Y_Min + Fireboy_Y_Size ) // Fireboy will reach out of top boundary
-					begin
-						Fireboy_Y_Pos_in = Fireboy_Y_Min+Fireboy_Y_Size; //set the motion in order not to go through the ceiling
-					end
+//				if (Fireboy_Y_Pos_in + Fireboy_Y_Size >= Fireboy_Y_Max)// Fireboy will reach out of bottom boundary
+//					begin
+//						Fireboy_Y_Pos_in = Fireboy_Y_Max+(~Fireboy_Y_Size+1'b1);  //set the position to drop on the ground perfectly
+//					end
+//				else if (Fireboy_Y_Pos <= Fireboy_Y_Min + Fireboy_Y_Size ) // Fireboy will reach out of top boundary
+//					begin
+//						Fireboy_Y_Pos_in = Fireboy_Y_Min+Fireboy_Y_Size; //set the motion in order not to go through the ceiling
+//					end
 				
+				//y-axis
+				if (is_Wall_down) 
+				begin
+						Fireboy_Y_Pos_in = Fireboy_Y_Pos_in - y_bias_down; //set the position to drop on the ground perfectly
+						on_ground_in =1'b1;	//on ground now
+				end
+				else if (is_Wall_up) 
+				begin
+						Fireboy_Y_Pos_in = Fireboy_Y_Pos_in + y_bias_up; //set the motion in order not to go through the ceiling
+						Fireboy_Y_Motion_in = 10'h0;
+				end
+				
+				//x-axis
+				if (is_Wall_left) 
+				begin
+						Fireboy_X_Pos_in = Fireboy_X_Pos_in + x_bias_left; //prevent from moving through the wall
+				end
+				else if (is_Wall_right) 
+				begin
+						Fireboy_X_Pos_in = Fireboy_X_Pos_in - x_bias_right; //prevent from moving through the wall
+				end
         end
 	end
 	

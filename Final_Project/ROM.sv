@@ -304,4 +304,58 @@ end
 
 endmodule
 
+module Wall
+(
+                input [13:0] read_address,
+                output logic [23:0] pixel_color
+);
+
+logic [3:0] ram [0:12495];
+logic [23:0] palette [15:0];
+assign palette[0] = 24'h800080;
+assign palette[1] = 24'h616121;
+assign palette[2] = 24'h6E682E;
+assign palette[3] = 24'h13290B;
+assign palette[4] = 24'h185214;
+assign palette[5] = 24'h6F6C47;
+assign palette[6] = 24'h1A8B1A;
+assign palette[7] = 24'h836D33;
+assign palette[8] = 24'h856A50;
+assign palette[9] = 24'h43391D;
+assign palette[10] = 24'h619857;
+assign palette[11] = 24'h32944A;
+assign palette[12] = 24'h57892E;
+assign palette[13] = 24'h386842;
+assign palette[14] = 24'h868147;
+assign palette[15] = 24'h80803E;
+assign pixel_color = palette[ram[read_address]];
+
+initial
+begin
+        $readmemh("../PNG_To_Hex/On-Chip_Memory/sprite_bytes/Wall.txt",ram);
+end
+
+endmodule
+
+module Background
+(
+                input [12:0] read_address,
+                output logic [23:0] pixel_color
+);
+
+logic [3:0] ram [0:5624];
+logic [23:0] palette [4:0];
+assign palette[0] = 24'h800080;
+assign palette[1] = 24'h292B09;
+assign palette[2] = 24'h2E300D;
+assign palette[3] = 24'h1E2000;
+assign palette[4] = 24'h1D1F00;
+assign pixel_color = palette[ram[read_address]];
+
+initial
+begin
+        $readmemh("../PNG_To_Hex/On-Chip_Memory/sprite_bytes/Background.txt",ram);
+end
+
+endmodule
 
