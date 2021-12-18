@@ -189,23 +189,23 @@ module  Fireboy ( input      Clk,                // 50 MHz clock
 				//y-axis
 				if (is_Wall_down) 
 				begin
-						Fireboy_Y_Pos_in = Fireboy_Y_Pos_in - y_bias_down; //set the position to drop on the ground perfectly
+						Fireboy_Y_Pos_in = y_bias_down; //set the position to drop on the ground perfectly
 						on_ground_in =1'b1;	//on ground now
 				end
 				else if (is_Wall_up) 
 				begin
-						Fireboy_Y_Pos_in = Fireboy_Y_Pos_in + y_bias_up; //set the motion in order not to go through the ceiling
+						Fireboy_Y_Pos_in = y_bias_up; //set the motion in order not to go through the ceiling
 						Fireboy_Y_Motion_in = 10'h0;
 				end
 				
 				//x-axis
 				if (is_Wall_left) 
 				begin
-						Fireboy_X_Pos_in = Fireboy_X_Pos_in + x_bias_left; //prevent from moving through the wall
+						Fireboy_X_Pos_in = x_bias_left; //prevent from moving through the wall
 				end
 				else if (is_Wall_right) 
 				begin
-						Fireboy_X_Pos_in = Fireboy_X_Pos_in - x_bias_right; //prevent from moving through the wall
+						Fireboy_X_Pos_in = x_bias_right; //prevent from moving through the wall
 				end
         end
 	end

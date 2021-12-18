@@ -7,48 +7,45 @@ module Map (
 	// in this module we set Walls
 	always_comb 
 		begin
-
-		if ( (DrawX >= 10'd0) && (DrawX < 10'd640) && (DrawY >= 10'd455) && (DrawY < 10'd480))	//bottom Wall
+		is_Wall = 1'b0;
+		x_bias = 10'b0;
+		y_bias = 10'b0;	//by default
+		
+		if ( (DrawX >= 10'd0) && (DrawX < 10'd640) && (DrawY >= 10'd455) )	//bottom Wall
 		begin
 			is_Wall = 1'b1;
-			x_bias = DrawX;
-			y_bias = DrawY-10'd455;
-
+			y_bias = 10'd455;
 		end
 		
-		else if ( (DrawX >= 10'd0) && (DrawX < 10'd640) && (DrawY >= 10'd0) && (DrawY < 10'd25))	//top Wall
+		else if ( (DrawX >= 10'd0) && (DrawX < 10'd640) && (DrawY < 10'd25))	//top Wall
 		begin
 			is_Wall = 1'b1;
-			x_bias = DrawX;
-			y_bias = DrawY;
+			y_bias = 10'd25;
 		end
 		
-		else if ( (DrawY >= 10'd0) && (DrawY < 10'd480) && (DrawX >= 10'd615) && (DrawX < 10'd640)) // right Wall
+		else if ( (DrawY >= 10'd0) && (DrawY < 10'd480) && (DrawX >= 10'd615)) // right Wall
 		begin
 			is_Wall = 1'b1;
-			x_bias = DrawX-10'd615;
-			y_bias = DrawY;
+			x_bias = 10'd615;
 		end
 		
-		else if ( (DrawY >= 10'd0) && (DrawY < 10'd480) && (DrawX >= 10'd0) && (DrawX < 10'd25)) // left Wall
+		else if ( (DrawY >= 10'd0) && (DrawY < 10'd480) && (DrawX < 10'd25)) // left Wall
 		begin
 			is_Wall = 1'b1;
-			x_bias = DrawX;
-			y_bias = DrawY;
+			x_bias = 10'd25;
 		end
 		
 		else if ((DrawX >= 10'd0) && (DrawX < 10'd215) && (DrawY >= 10'd391) && (DrawY < 10'd411)) 	//platform for Fireboy
 		begin
 			is_Wall = 1'b1;
-			x_bias = DrawX;
-			y_bias = DrawY-10'd391;
+			y_bias = 10'd391;
 		end
 		
 		else if ((DrawX >= 10'd565) && (DrawX < 10'd640) && (DrawY >= 10'd420) && (DrawY < 10'd480)) 	//test block
 		begin
 			is_Wall = 1'b1;
-			x_bias = DrawX-10'd565;
-			y_bias = DrawY-10'd391;
+			x_bias = 10'd565;
+			y_bias = 10'd420;
 		end
 		
 		else
