@@ -24,7 +24,9 @@ timeprecision 1ns;
 	logic [11:0] Fireboy_address;	// return the character pixel adress for ROM inference
 	logic [3:0] Fireboy_direction;
 	logic frame_clk_delayed, frame_clk_rising_edge;
-	
+	logic is_Wall_up,is_Wall_down,is_Wall_left,is_Wall_right;
+	logic [3:0] debugger;
+	logic is_Wall_right_rising_edge;
 	
 // initialize the toplevel entity
 	VGA_controller test(.Clk(Clk),.Reset(Reset),.VGA_HS(VGA_HS),.VGA_VS(VGA_VS),.VGA_CLK(VGA_CLK),.VGA_BLANK_N(VGA_BLANK_N),.VGA_SYNC_N(VGA_SYNC_N)
@@ -32,8 +34,8 @@ timeprecision 1ns;
 	vga_clk vga_clk_instance(.inclk0(Clk), .c0(VGA_CLK));
 	Fireboy Fireboy_test(.*,.frame_clk(VGA_VS));
 	
-	assign frame_clk_delayed=Fireboy_test.frame_clk_delayed; 
-	assign frame_clk_rising_edge=Fireboy_test.frame_clk_rising_edge;
+ 
+	assign is_Wall_right_rising_edge=Fireboy_test.is_Wall_right_rising_edge;
 	// set clock rule
    always begin : CLOCK_GENERATION 
 		#1 Clk = ~Clk;
@@ -42,13 +44,14 @@ timeprecision 1ns;
 	// initialize clock signal 
 	initial begin: INITIALIZATION 
 		Clk = 0;
+		d_key =1;
    end
 	
 	// begin testing
 	initial begin
 		Reset = 0; 
 		w_key =0; 
-		a_key =1;
+
 		d_key =0;
 	#60	Reset = 1; 
 	#2 	Reset = 0;

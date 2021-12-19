@@ -59,6 +59,8 @@ module lab8( input               CLOCK_50,
 	 logic is_ball;
 	 logic [7:0] led;
     logic w_key, a_key, d_key, arrow_up, arrow_left, arrow_right;
+	 logic x_bias, y_bias;
+	 logic [3:0] debugger; 
     assign Clk = CLOCK_50;
     always_ff @ (posedge Clk) begin
         Reset_h <= ~(KEY[0]);        // The push buttons are active low
@@ -72,6 +74,9 @@ module lab8( input               CLOCK_50,
 	 logic [11:0] Fireboy_address,Watergirl_address;
 	 logic [3:0] Fireboy_direction,Watergirl_direction;
 	 logic is_Fireboy, is_Watergirl, is_Wall;
+	 
+	 //fireboy is wall
+	 logic is_Wall_up,is_Wall_down,is_Wall_left,is_Wall_right;
     
 	 
 	 logic [13:0] Wall_address;
@@ -152,10 +157,12 @@ module lab8( input               CLOCK_50,
                         .DrawY(DrawY),
                         .is_Fireboy(is_Fireboy),
 								.Fireboy_address(Fireboy_address),
-								.Fireboy_direction(Fireboy_direction)
+								.Fireboy_direction(Fireboy_direction),
+								.is_Wall_up(is_Wall_up),.is_Wall_down(is_Wall_down),.is_Wall_left(is_Wall_left),.is_Wall_right(is_Wall_right),
+								.debugger(debugger)
 								);
     
-	 Map Map(.DrawX(DrawX),.DrawY(DrawY),.Wall_address(Wall_address),.is_Wall(is_Wall),.x_bias(),.y_bias());
+	 Map Map(.DrawX(DrawX),.DrawY(DrawY),.Wall_address(Wall_address),.is_Wall(is_Wall),.x_bias(x_bias),.y_bias(y_bias));
 	 
     color_mapper color_instance(
 										  .is_Fireboy(is_Fireboy),
@@ -170,16 +177,21 @@ module lab8( input               CLOCK_50,
                                 .VGA_G(VGA_G),
                                 .VGA_B(VGA_B)
 										  );
-    AudioController AC(.CLK(CLOCK_50),.Reset(~Reset_h),.FL_ADDR(FL_ADDR),.FL_DQ(FL_DQ),.FL_OE_N(FL_OE_N),.FL_WP_N(FL_WP_N),
-							  .FL_RST_N(FL_RET_N),.FL_WE_N(FL_WE_N),.FL_CE_N(FL_CE_N),.AUD_DACLRCK(AUD_DACLRCK),.AUD_BCLK(AUD_BCLK),
-							  .AUD_DACDAT(AUD_DACDAT),.AUD_XCK(AUD_XCK),.I2C_SCLK(I2C_SCLK),.I2C_SDAT(I2C_SDAT));
+//    AudioController AC(.CLK(CLOCK_50),.Reset(~Reset_h),.FL_ADDR(FL_ADDR),.FL_DQ(FL_DQ),.FL_OE_N(FL_OE_N),.FL_WP_N(FL_WP_N),
+//							  .FL_RST_N(FL_RET_N),.FL_WE_N(FL_WE_N),.FL_CE_N(FL_CE_N),.AUD_DACLRCK(AUD_DACLRCK),.AUD_BCLK(AUD_BCLK),
+//							  .AUD_DACDAT(AUD_DACDAT),.AUD_XCK(AUD_XCK),.I2C_SCLK(I2C_SCLK),.I2C_SDAT(I2C_SDAT));
 							  
 	 keycode_reader keycode_reader(.*);
 	 
     //Display keycode on hex display
 	 assign led[3:0]=Fireboy_direction[3:0];
+	 assign led[7]=is_Wall_up;
+	 assign led[6]=is_Wall_down;
+	 assign led[5]=is_Wall_left;
+	 assign led[4]=is_Wall_right;
     HexDriver hex_inst_0 ({1'b0,w_key, a_key, d_key}, HEX6);
 	 HexDriver hex_inst_1 ({1'b0,arrow_up, arrow_left, arrow_right}, HEX7);
+	 HexDriver hex_inst_2 (debugger[3:0],HEX0);
 //	 HexDriver hex_inst_1 (keycode[43:40], HEX6);
 //    HexDriver hex_inst_2 (keycode[47:44], HEX7);
 	 

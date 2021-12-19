@@ -11,25 +11,25 @@ module Map (
 		x_bias = 10'b0;
 		y_bias = 10'b0;	//by default
 		
-		if ( (DrawX >= 10'd0) && (DrawX < 10'd640) && (DrawY >= 10'd455) )	//bottom Wall
+		if ( (DrawX >= 10'd0) && (DrawX < 10'd640) && (DrawY >= 10'd455) && (DrawY < 10'd480))	//bottom Wall
 		begin
 			is_Wall = 1'b1;
 			y_bias = 10'd455;
 		end
 		
-		else if ( (DrawX >= 10'd0) && (DrawX < 10'd640) && (DrawY < 10'd25))	//top Wall
+		else if ( (DrawX >= 10'd0) && (DrawX < 10'd640) && (DrawY >= 10'd0) && (DrawY < 10'd25))	//top Wall
 		begin
 			is_Wall = 1'b1;
 			y_bias = 10'd25;
 		end
 		
-		else if ( (DrawY >= 10'd0) && (DrawY < 10'd480) && (DrawX >= 10'd615)) // right Wall
+		else if ( (DrawY >= 10'd0) && (DrawY < 10'd480) && (DrawX >= 10'd615) && (DrawX < 10'd640)) // right Wall
 		begin
 			is_Wall = 1'b1;
 			x_bias = 10'd615;
 		end
 		
-		else if ( (DrawY >= 10'd0) && (DrawY < 10'd480) && (DrawX < 10'd25)) // left Wall
+		else if ( (DrawY >= 10'd0) && (DrawY < 10'd480) && (DrawX >= 10'd0) && (DrawX < 10'd25)) // left Wall
 		begin
 			is_Wall = 1'b1;
 			x_bias = 10'd25;

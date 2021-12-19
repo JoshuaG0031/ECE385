@@ -42,7 +42,7 @@ set_global_assignment -name DEVICE EP4CE115F29C7
 set_global_assignment -name TOP_LEVEL_ENTITY lab8
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION 14.0
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "17:55:02  SEPTEMBER 28, 2015"
-set_global_assignment -name LAST_QUARTUS_VERSION "19.1.0 Lite Edition"
+set_global_assignment -name LAST_QUARTUS_VERSION "18.1.0 Lite Edition"
 set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -entity DE2_115_Default -section_id Top
 set_global_assignment -name PARTITION_COLOR 16764057 -entity DE2_115_Default -section_id Top
 set_global_assignment -name LL_ROOT_REGION ON -entity DE2_115_Default -section_id "Root Region"
@@ -589,15 +589,13 @@ set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -entity final_project_
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -entity final_project_top -section_id Top
 set_global_assignment -name PARTITION_COLOR 16764057 -entity final_project_top -section_id Top
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -entity final_project_top -section_id Top
-set_global_assignment -name EDA_TIME_SCALE "1 ps" -section_id eda_simulation
+set_global_assignment -name EDA_TIME_SCALE "100 ns" -section_id eda_simulation
 set_global_assignment -name EDA_TEST_BENCH_FILE testbench.sv -section_id testbench
-set_global_assignment -name VHDL_FILE audio_interface.vhd
-set_global_assignment -name SYSTEMVERILOG_FILE hpi_io_intf.sv
 set_global_assignment -name SYSTEMVERILOG_FILE testbench.sv
+set_global_assignment -name SYSTEMVERILOG_FILE hpi_io_intf.sv
 set_global_assignment -name QIP_FILE lab8_soc/synthesis/lab8_soc.qip
 set_global_assignment -name SYSTEMVERILOG_FILE ROM.sv
 set_global_assignment -name VERILOG_FILE I2C_Protocol.v
-set_global_assignment -name SYSTEMVERILOG_FILE AudioController.sv
 set_global_assignment -name SYSTEMVERILOG_FILE VGA_controller.sv
 set_global_assignment -name SYSTEMVERILOG_FILE lab8.sv
 set_global_assignment -name SYSTEMVERILOG_FILE HexDriver.sv
@@ -607,4 +605,5 @@ set_global_assignment -name QIP_FILE USB_Clock_PLL.qip
 set_global_assignment -name SYSTEMVERILOG_FILE Fireboy.sv
 set_global_assignment -name SYSTEMVERILOG_FILE keycode_reader.sv
 set_global_assignment -name SYSTEMVERILOG_FILE Map.sv
+set_global_assignment -name SYSTEMVERILOG_FILE up_counter.sv
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
