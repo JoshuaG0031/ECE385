@@ -59,7 +59,6 @@ module lab8( input               CLOCK_50,
 	 logic is_ball;
 	 logic [7:0] led;
     logic w_key, a_key, d_key, arrow_up, arrow_left, arrow_right;
-	 logic x_bias, y_bias;
 	 logic [3:0] debugger; 
     assign Clk = CLOCK_50;
     always_ff @ (posedge Clk) begin
@@ -159,10 +158,10 @@ module lab8( input               CLOCK_50,
 								.Fireboy_address(Fireboy_address),
 								.Fireboy_direction(Fireboy_direction),
 								.is_Wall_up(is_Wall_up),.is_Wall_down(is_Wall_down),.is_Wall_left(is_Wall_left),.is_Wall_right(is_Wall_right),
-								.debugger(debugger)
+//								.debugger(debugger)
 								);
     
-	 Map Map(.DrawX(DrawX),.DrawY(DrawY),.Wall_address(Wall_address),.is_Wall(is_Wall),.x_bias(x_bias),.y_bias(y_bias));
+	 Map Map(.DrawX(DrawX),.DrawY(DrawY),.Wall_address(Wall_address),.is_Wall(is_Wall));
 	 
     color_mapper color_instance(
 										  .is_Fireboy(is_Fireboy),

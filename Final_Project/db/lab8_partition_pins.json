@@ -36,22 +36,6 @@
 					"strict" : false
 				},
 				{
-					"name" : "HEX0[0]",
-					"strict" : false
-				},
-				{
-					"name" : "HEX0[3]",
-					"strict" : false
-				},
-				{
-					"name" : "HEX0[4]",
-					"strict" : false
-				},
-				{
-					"name" : "HEX0[5]",
-					"strict" : false
-				},
-				{
 					"name" : "HEX6[0]",
 					"strict" : false
 				},

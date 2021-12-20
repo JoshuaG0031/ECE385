@@ -6,8 +6,8 @@ module  Fireboy ( input      Clk,                // 50 MHz clock
 					output logic  is_Fireboy,           // Whether current pixel belongs to Fireboy
 					output logic [11:0] Fireboy_address,	// return the character pixel adress for ROM inference
 					output logic [3:0] Fireboy_direction,	//from 0-8, denote 9 moving direction: from left to right and from top to bottom. 
-					output logic is_Wall_up,is_Wall_down,is_Wall_left,is_Wall_right,
-					output logic [3:0] debugger
+					output logic is_Wall_up,is_Wall_down,is_Wall_left,is_Wall_right
+//					output logic [3:0] debugger
               );
     
     parameter [9:0] Fireboy_X_Center = 10'd500;  // Center position on the X axis
@@ -25,51 +25,39 @@ module  Fireboy ( input      Clk,                // 50 MHz clock
     logic [9:0] Fireboy_X_Pos, Fireboy_X_Motion, Fireboy_Y_Pos, Fireboy_Y_Motion;
     logic [9:0] Fireboy_X_Pos_in, Fireboy_X_Motion_in, Fireboy_Y_Pos_in, Fireboy_Y_Motion_in;
 	 logic [3:0] Fireboy_direction_in;
-	 logic on_ground,on_ground_in;
-	 logic [3:0] counter;
+	 logic on_ground, on_ground_in;
+	 logic [3:0] counter, up_bound_X, up_bound_Y, up_bound_X_in, up_bound_Y_in;
+	 logic reset_counter, reset_counter_in;
 	 logic [9:0] down_position,up_position,left_position,right_position;
+	 logic [3:0]flag, flag_in;
 	 
-	 logic [3:0] debugger_in;
+//	 logic [3:0] debugger_in;
 	 
 //	 logic is_Wall_up,is_Wall_down,is_Wall_left,is_Wall_right;
-	 logic [9:0] x_bias_left, x_bias_right, y_bias_up, y_bias_down;
+//	 logic [9:0] x_bias_left, x_bias_right, y_bias_up, y_bias_down;
 	 
 	 Map Wall_up(.DrawX(Fireboy_X_Pos_in),.DrawY(up_position),
-						.Wall_address(),.is_Wall(is_Wall_up),.x_bias(),.y_bias(y_bias_up));
+						.Wall_address(),.is_Wall(is_Wall_up));
 						
 	 Map Wall_down(.DrawX(Fireboy_X_Pos_in),.DrawY(down_position),
-						.Wall_address(),.is_Wall(is_Wall_down),.x_bias(),.y_bias(y_bias_down));
+						.Wall_address(),.is_Wall(is_Wall_down));
 						
 	 Map Wall_left(.DrawX(left_position),.DrawY(Fireboy_Y_Pos_in),
-						.Wall_address(),.is_Wall(is_Wall_left),.x_bias(x_bias_left),.y_bias());
+						.Wall_address(),.is_Wall(is_Wall_left));
 						
 	 Map Wall_right(.DrawX(right_position),.DrawY(Fireboy_Y_Pos_in),
-						.Wall_address(),.is_Wall(is_Wall_right),.x_bias(x_bias_right),.y_bias());
+						.Wall_address(),.is_Wall(is_Wall_right));
 	 
-	 up_counter counter_inst(.out(counter),.reset(Reset),.clk(Clk));
+	 up_counter counter_instx (.out(counter_X),.reset(reset_counter),.clk(Clk), .up_bound(up_bound_X));
+	 up_counter counter_insty (.out(counter_Y),.reset(reset_counter),.clk(Clk), .up_bound(up_bound_Y));
+	 
 	 // Detect rising edge of frame_clk
     logic frame_clk_delayed, frame_clk_rising_edge;
-	 logic is_Wall_up_delayed,is_Wall_up_rising_edge;
-	 logic is_Wall_down_delayed,is_Wall_down_rising_edge; 
-	 logic is_Wall_left_delayed,is_Wall_left_rising_edge;
-	 logic is_Wall_right_delayed,is_Wall_right_rising_edge;
+
     always_ff @ (posedge Clk) begin
         frame_clk_delayed <= frame_clk;
         frame_clk_rising_edge <= (frame_clk == 1'b1) && (frame_clk_delayed == 1'b0);
-		  
-		  is_Wall_up_delayed<= is_Wall_up;
-		  is_Wall_up_rising_edge<=(is_Wall_up == 1'b1) && (is_Wall_up_delayed == 1'b0);
-		  
-		  is_Wall_down_delayed<= is_Wall_down;
-		  is_Wall_down_rising_edge<=(is_Wall_down == 1'b1) && (is_Wall_down_delayed == 1'b0);
-		  
-		  is_Wall_left_delayed<= is_Wall_left;
-		  is_Wall_left_rising_edge<=(is_Wall_left == 1'b1) && (is_Wall_left_delayed == 1'b0);
-		  
-		  is_Wall_right_delayed<= is_Wall_right;
-		  is_Wall_right_rising_edge<=(is_Wall_right == 1'b1) && (is_Wall_right_delayed == 1'b0);
-		  
-		  
+ 
     end
     // Update registers
     always_ff @ (posedge Clk)
@@ -82,7 +70,11 @@ module  Fireboy ( input      Clk,                // 50 MHz clock
             Fireboy_Y_Motion <= 10'd0;
 				Fireboy_direction <= 4'd4;
 				on_ground <= 1'b1;
-				debugger<=4'b0;
+				up_bound_X <= 4'd15;
+				up_bound_Y <= 4'd15;
+				reset_counter <= 1'b1;
+				flag <= 4'b0000;	//bit 3 denote start searching for x-axis, bit 2 denote sign of x-motion, bit 1 and bit 0 for y-axis.
+//				debugger<=4'b0;
         end
         else
         begin
@@ -92,7 +84,11 @@ module  Fireboy ( input      Clk,                // 50 MHz clock
             Fireboy_Y_Motion <= Fireboy_Y_Motion_in;
 				Fireboy_direction <= Fireboy_direction_in;
 				on_ground			<= on_ground_in;
-				debugger		<= debugger+(is_Wall_right == 1'b1) && (is_Wall_right_delayed == 1'b0);
+				up_bound_X <= up_bound_X_in;
+				up_bound_Y <= up_bound_Y_in;
+				reset_counter <= reset_counter_in;
+				flag <= flag_in;
+//				debugger		<= debugger+(is_Wall_right == 1'b1) && (is_Wall_right_delayed == 1'b0);
         end
     end
 	 
@@ -105,11 +101,20 @@ module  Fireboy ( input      Clk,                // 50 MHz clock
         Fireboy_Y_Motion_in = Fireboy_Y_Motion;
 		  Fireboy_direction_in = Fireboy_direction;
 		  on_ground_in=on_ground;
-		  down_position = Fireboy_Y_Pos_in+Fireboy_Y_Size;
-		  up_position = Fireboy_Y_Pos_in-Fireboy_Y_Size;
-		  right_position = Fireboy_X_Pos_in+Fireboy_X_Size;
-		  left_position = Fireboy_X_Pos_in-Fireboy_X_Size;
-		  debugger_in = 4'b0;
+		  reset_counter_in = reset_counter;
+		  flag_in = flag;
+		  
+		  down_position = (Fireboy_Y_Motion[9])? 		Fireboy_Y_Pos+Fireboy_Y_Size : Fireboy_Y_Pos+Fireboy_Y_Size + counter_Y;
+		  up_position = (Fireboy_Y_Motion[9])? 		Fireboy_Y_Pos-Fireboy_Y_Size -counter_Y : Fireboy_Y_Pos-Fireboy_Y_Size;
+		  right_position = (Fireboy_X_Motion[9])? 	Fireboy_X_Pos+Fireboy_X_Size : Fireboy_X_Pos+Fireboy_X_Size + counter_X;
+		  left_position = (Fireboy_X_Motion[9])? 		Fireboy_X_Pos-Fireboy_X_Size -counter_X : Fireboy_X_Pos-Fireboy_X_Size;
+		  
+		  up_bound_X_in = up_bound_X;
+		  
+		  up_bound_Y_in = up_bound_Y;
+//		  debugger_in = 4'b0;
+
+
         // Update position and motion only at rising edge of frame clock
         if (frame_clk_rising_edge)
         begin
@@ -120,6 +125,10 @@ module  Fireboy ( input      Clk,                // 50 MHz clock
 							begin
 								Fireboy_Y_Motion_in = (~initial_motion)+1'b1; 	//give initial velocity to Fireboy
 								on_ground_in =1'b0;			//jump
+							end
+						if (~ is_Wall_down)
+							begin
+								on_ground_in =1'b0;			//falling
 							end
 					end
 				else //not on ground
@@ -137,7 +146,7 @@ module  Fireboy ( input      Clk,                // 50 MHz clock
 					begin
 						Fireboy_X_Motion_in = (~(Fireboy_X_Step)+1'b1);
 					end
-				else if (d_key && ~a_key) // press d (right)
+				else if (d_key && ~a_key ) // press d (right)
 					begin	
 						Fireboy_X_Motion_in = Fireboy_X_Step;
 					end	
@@ -215,79 +224,72 @@ module  Fireboy ( input      Clk,                // 50 MHz clock
 							end
 					end
 					
-				Fireboy_X_Pos_in = Fireboy_X_Pos + Fireboy_X_Motion;
-            Fireboy_Y_Pos_in = Fireboy_Y_Pos + Fireboy_Y_Motion;
-				
-//				if (Fireboy_Y_Pos_in + Fireboy_Y_Size >= Fireboy_Y_Max)// Fireboy will reach out of bottom boundary
-//					begin
-//						Fireboy_Y_Pos_in = Fireboy_Y_Max+(~Fireboy_Y_Size+1'b1);  //set the position to drop on the ground perfectly
-//					end
-//				else if (Fireboy_Y_Pos <= Fireboy_Y_Min + Fireboy_Y_Size ) // Fireboy will reach out of top boundary
-//					begin
-//						Fireboy_Y_Pos_in = Fireboy_Y_Min+Fireboy_Y_Size; //set the motion in order not to go through the ceiling
-//					end
-				
-				//y-axis
-//				if (is_Wall_down) 
-//				begin
-//						Fireboy_Y_Pos_in = y_bias_down - Fireboy_Y_Size; //set the position to drop on the ground perfectly
-//						on_ground_in =1'b1;	//on ground now
-//				end
-//				else if (is_Wall_up) 
-//				begin
-//						Fireboy_Y_Pos_in = y_bias_up + Fireboy_Y_Size; //set the motion in order not to go through the ceiling
-//						Fireboy_Y_Motion_in = 10'h0;
-//				end
-//				
-//				//x-axis
-//				if (is_Wall_left) 
-//				begin
-//						Fireboy_X_Pos_in = x_bias_left + Fireboy_X_Size; //prevent from moving through the wall
-//				end
-//				else if (is_Wall_right) 
-//				begin
-//						Fireboy_X_Pos_in = x_bias_right - Fireboy_X_Size; //prevent from moving through the wall
-//				end
-				
-				
-				
-				//is wall down
-				if (counter <= Fireboy_Y_Motion)  begin
-					down_position = Fireboy_Y_Pos_in+Fireboy_Y_Size+counter;
-					up_position = Fireboy_Y_Pos_in-Fireboy_Y_Size-counter;
+				//take the absolute value
+				if (Fireboy_X_Motion[9]) begin
+					up_bound_X_in = (~Fireboy_X_Motion) + 1'b1;
+					flag_in[3:2] = 2'b11;
 				end
-				if (counter <= Fireboy_X_Motion) begin
-					right_position = Fireboy_X_Pos_in+Fireboy_X_Size+counter;
-					left_position = Fireboy_X_Pos_in-Fireboy_X_Size-counter;
+				else begin
+					up_bound_X_in = Fireboy_X_Motion;
+					flag_in[3:2] = 2'b10;
 				end
-				//move down
+				
+				if (Fireboy_Y_Motion[9]) begin
+					up_bound_Y_in = (~Fireboy_Y_Motion) + 1'b1;
+					flag_in[1:0] = 2'b11;
+				end
 
-				if(is_Wall_down_rising_edge==1'b1) begin
-					Fireboy_Y_Pos_in = down_position-Fireboy_Y_Size;
-					Fireboy_Y_Motion_in = 10'd0;
-					on_ground_in=1'b1;
+				else begin
+					up_bound_Y_in = Fireboy_Y_Motion;
+					flag_in[1:0] = 2'b10;
 				end
-				
-				if(is_Wall_up_rising_edge==1'b1) begin
-					Fireboy_Y_Pos_in = up_position+Fireboy_Y_Size;
-					Fireboy_Y_Motion_in = 10'd0;
-				end
-				
-				if(is_Wall_right_rising_edge==1'b1) begin
-					Fireboy_X_Pos_in = right_position;
-					Fireboy_X_Motion_in = 10'd0;
-					debugger_in = 4'b1;
-				end
+
+				//start counting
+				reset_counter_in =  1'b0;
 				
 				
-				if(is_Wall_left_rising_edge==1'b1) begin
-					Fireboy_X_Pos_in = left_position;
-					Fireboy_X_Motion_in = 10'd0;
-				end
-				
-					
+				Fireboy_X_Pos_in = Fireboy_X_Pos + Fireboy_X_Motion;
+				Fireboy_Y_Pos_in = Fireboy_Y_Pos + Fireboy_Y_Motion;
+						
     end
+	 
+			if (flag[1] && is_Wall_down ) begin	//update only once
+				Fireboy_Y_Pos_in = down_position - 1'b1 - Fireboy_Y_Size;
+				on_ground_in = 1'b1;
+				Fireboy_Y_Motion_in = 1'b0;
+				flag_in[1] = 1'b0;
+			end
+			
+			else if ( flag[1] && is_Wall_up ) begin
+				Fireboy_Y_Pos_in = up_position + 1'b1 + Fireboy_Y_Size;
+				Fireboy_Y_Motion_in = 1'b0;
+				flag_in[1] = 1'b0;
+			end
+			else if (flag[1] && counter_Y == up_bound_Y  ) begin
+				Fireboy_Y_Pos_in = (flag[0])? Fireboy_Y_Pos - up_bound_Y : Fireboy_Y_Pos + up_bound_Y;
+				flag_in[1] = 1'b0;
+			end
+			
+			if (flag[3] && is_Wall_right  ) begin
+				Fireboy_X_Pos_in = right_position - 1'b1 - Fireboy_X_Size;
+				Fireboy_X_Motion_in = 1'b0;
+				flag_in[3] = 1'b0;
+			end
+			
+			else if (flag[3] && is_Wall_left) begin
+				Fireboy_X_Pos_in = left_position + 1'b1 + Fireboy_X_Size;
+				Fireboy_X_Motion_in = 1'b0;
+				flag_in[3] = 1'b0;
+			end
+			
+			else if (flag[3] && counter_X == up_bound_X) begin
+				Fireboy_X_Pos_in = (flag[2])? Fireboy_X_Pos - up_bound_X : Fireboy_X_Pos + up_bound_X;
+				flag_in[3] = 1'b0;
+			end
+	 
 	end
+	
+	
 	
 	int pixel_x, pixel_y;
    assign pixel_x = DrawX - Fireboy_X_Pos + Fireboy_X_Size;  // compute the address of the character
