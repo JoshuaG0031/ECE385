@@ -7,6 +7,7 @@ module  Fireboy ( input      Clk,                // 50 MHz clock
 					output logic [11:0] Fireboy_address,	// return the character pixel adress for ROM inference
 					output logic [3:0] Fireboy_direction,	//from 0-8, denote 9 moving direction: from left to right and from top to bottom. 
 					output logic is_Wall_up,is_Wall_down,is_Wall_left,is_Wall_right,
+					
 					output logic [3:0] debugger
               );
     
@@ -111,7 +112,31 @@ module  Fireboy ( input      Clk,                // 50 MHz clock
 		  left_position = Fireboy_X_Pos_in-Fireboy_X_Size;
 		  debugger_in = 4'b0;
         // Update position and motion only at rising edge of frame clock
-        if (frame_clk_rising_edge)
+				if(is_Wall_down_rising_edge==1'b1) begin
+					Fireboy_Y_Pos_in = down_position-Fireboy_Y_Size;
+					Fireboy_Y_Motion_in = 10'd0;
+					on_ground_in=1'b1;
+				end
+				
+				if(is_Wall_up_rising_edge==1'b1) begin
+					Fireboy_Y_Pos_in = up_position+Fireboy_Y_Size;
+					Fireboy_Y_Motion_in = 10'd0;
+				end
+				
+				if(is_Wall_right_rising_edge==1'b1) begin
+					Fireboy_X_Pos_in = right_position-Fireboy_X_Size;
+					Fireboy_X_Motion_in = 10'd0;
+					debugger_in = 4'b1;
+				end
+				
+				
+				if(is_Wall_left_rising_edge==1'b1) begin
+					Fireboy_X_Pos_in = left_position+Fireboy_X_Size;
+					Fireboy_X_Motion_in = 10'd0;
+				end
+		  
+		  
+		  if (frame_clk_rising_edge)
         begin
 				// y-axis
 				if (on_ground) //on ground
@@ -120,6 +145,10 @@ module  Fireboy ( input      Clk,                // 50 MHz clock
 							begin
 								Fireboy_Y_Motion_in = (~initial_motion)+1'b1; 	//give initial velocity to Fireboy
 								on_ground_in =1'b0;			//jump
+							end
+						if(~is_Wall_down)
+							begin
+								on_ground_in =1'b0; // falling
 							end
 					end
 				else //not on ground
@@ -262,28 +291,7 @@ module  Fireboy ( input      Clk,                // 50 MHz clock
 				end
 				//move down
 
-				if(is_Wall_down_rising_edge==1'b1) begin
-					Fireboy_Y_Pos_in = down_position-Fireboy_Y_Size;
-					Fireboy_Y_Motion_in = 10'd0;
-					on_ground_in=1'b1;
-				end
 				
-				if(is_Wall_up_rising_edge==1'b1) begin
-					Fireboy_Y_Pos_in = up_position+Fireboy_Y_Size;
-					Fireboy_Y_Motion_in = 10'd0;
-				end
-				
-				if(is_Wall_right_rising_edge==1'b1) begin
-					Fireboy_X_Pos_in = right_position;
-					Fireboy_X_Motion_in = 10'd0;
-					debugger_in = 4'b1;
-				end
-				
-				
-				if(is_Wall_left_rising_edge==1'b1) begin
-					Fireboy_X_Pos_in = left_position;
-					Fireboy_X_Motion_in = 10'd0;
-				end
 				
 					
     end
