@@ -359,3 +359,102 @@ end
 
 endmodule
 
+module Fire_pool
+(
+                input [8:0] read_address,      
+                output logic [23:0] pixel_color
+);
+
+logic [3:0] ram [0:439];
+logic [23:0] palette [15:0];
+assign palette[0] = 24'h800080;
+assign palette[1] = 24'hF45808;
+assign palette[2] = 24'hF21208;
+assign palette[3] = 24'h211805;
+assign palette[4] = 24'h5B1409;
+assign palette[5] = 24'h69672B;
+assign palette[6] = 24'h9E1F15;
+assign palette[7] = 24'h6D6947;
+assign palette[8] = 24'hA35515;
+assign palette[9] = 24'hEE8513;
+assign palette[10] = 24'h314913;
+assign palette[11] = 24'h93654B;
+assign palette[12] = 24'hDC854B;
+assign palette[13] = 24'hD36B48;
+assign palette[14] = 24'hAB8B49;
+assign palette[15] = 24'h2D6957;
+assign pixel_color = palette[ram[read_address]];
+
+initial
+begin
+        $readmemh("../PNG_To_Hex/On-Chip_Memory/sprite_bytes/Fire_pool.txt",ram);
+end
+
+endmodule
+
+module Water_pool
+(
+                input [8:0] read_address,
+                output logic [23:0] pixel_color
+);
+
+logic [3:0] ram [0:439];
+logic [23:0] palette [15:0];
+assign palette[0] = 24'h800080;
+assign palette[1] = 24'h111C12;
+assign palette[2] = 24'h2C6B70;
+assign palette[3] = 24'h297684;
+assign palette[4] = 24'h2F8485;
+assign palette[5] = 24'h68652E;
+assign palette[6] = 24'h318279;
+assign palette[7] = 24'h5E6B54;
+assign palette[8] = 24'h334422;
+assign palette[9] = 24'h143948;
+assign palette[10] = 24'h1D8583;
+assign palette[11] = 24'h428588;
+assign palette[12] = 24'h44847B;
+assign palette[13] = 24'h447885;
+assign palette[14] = 24'h806C2C;
+assign palette[15] = 24'h413D1D;
+assign pixel_color = palette[ram[read_address]];
+
+initial
+begin
+        $readmemh("../PNG_To_Hex/On-Chip_Memory/sprite_bytes/Water_pool.txt",ram);
+end
+
+endmodule
+
+module Swamp
+(
+                input [8:0] read_address,
+                output logic [23:0] pixel_color
+);
+
+logic [3:0] ram [0:439];
+logic [23:0] palette [15:0];
+assign palette[0] = 24'h800080;
+assign palette[1] = 24'h036903;
+assign palette[2] = 24'h035704;
+assign palette[3] = 24'h064608;
+assign palette[4] = 24'h05760A;
+assign palette[5] = 24'h161703;
+assign palette[6] = 24'h082601;
+assign palette[7] = 24'h071701;
+assign palette[8] = 24'h063705;
+assign palette[9] = 24'h6E6831;
+assign palette[10] = 24'h636330;
+assign palette[11] = 24'h058513;
+assign palette[12] = 24'h706E45;
+assign palette[13] = 24'h26601E;
+assign palette[14] = 24'h817450;
+assign palette[15] = 24'h402102;
+assign pixel_color = palette[ram[read_address]];
+
+initial
+begin
+        $readmemh("../PNG_To_Hex/On-Chip_Memory/sprite_bytes/Swamp.txt",ram);
+end
+
+endmodule
+

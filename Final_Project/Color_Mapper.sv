@@ -14,10 +14,12 @@
 //-------------------------------------------------------------------------
 
 // color_mapper: Decide which color to be output to VGA for each pixel.
-module  color_mapper ( input              is_Fireboy, is_Watergirl, is_Wall ,       
+module  color_mapper ( input              is_Fireboy, is_Watergirl, is_Wall ,
+							  input 					is_Fire_pool, is_Water_pool, is_Swamp,
 							  input 			[3:0] Fireboy_direction,Watergirl_direction,
 							  input        [11:0]Fireboy_address,Watergirl_address,
 							  input			[13:0]Wall_address,
+							  input        [8:0] Fire_pool_address, Water_pool_address, Swamp_address,
                        input        [9:0] DrawX, DrawY,       // Current pixel coordinates
                        output logic [7:0] VGA_R, VGA_G, VGA_B // VGA RGB output
                      );
@@ -25,6 +27,9 @@ module  color_mapper ( input              is_Fireboy, is_Watergirl, is_Wall ,
     logic [7:0] Red, Green, Blue;
 	 //background and wall images
 	 logic [23:0] pixel_color_Background, pixel_color_Wall;
+	 //pool images
+	 logic [23:0] pixel_color_Fire_pool, pixel_color_Water_pool, pixel_color_Swamp;
+	 
 	 //Fireboy images
 	 logic [23:0] pixel_color_Fireboy_still,pixel_color_Fireboy_left,pixel_color_Fireboy_right,
 						pixel_color_Fireboy_up,pixel_color_Fireboy_down,pixel_color_Fireboy_ru,
@@ -33,6 +38,12 @@ module  color_mapper ( input              is_Fireboy, is_Watergirl, is_Wall ,
 	 //background and wall modules
 	 Background Background(.read_address((DrawX % 75) + (DrawY % 75) * 75),.pixel_color(pixel_color_Background));
 	 Wall Wall(.read_address(Wall_address),.pixel_color(pixel_color_Wall));
+	 
+	 //pool modules
+	 Fire_pool Fire_pool(.read_address(Fire_pool_address),.pixel_color(pixel_color_Fire_pool));
+	 Water_pool Water_pool(.read_address(Water_pool_address),.pixel_color(pixel_color_Water_pool));
+	 Swamp Swamp(.read_address(Swamp_address),.pixel_color(pixel_color_Swamp));
+	 
 
 	 //sprite modules
 	 Fireboy_still Fireboy_still(.read_address(Fireboy_address),.pixel_color(pixel_color_Fireboy_still));
@@ -95,6 +106,21 @@ module  color_mapper ( input              is_Fireboy, is_Watergirl, is_Wall ,
 			if (is_Wall) 
 			begin
 				pixel_color=pixel_color_Wall;
+			end
+			
+			if (is_Fire_pool)
+			begin
+				pixel_color=pixel_color_Fire_pool;
+			end
+			
+			if (is_Water_pool)
+			begin
+				pixel_color=pixel_color_Water_pool;
+			end
+			
+			if (is_Swamp)
+			begin
+				pixel_color=pixel_color_Swamp;
 			end
 			
 			Red = pixel_color[23:16];

@@ -1,6 +1,6 @@
 module Map (
             input [9:0]   DrawX, DrawY,
-			output logic [13:0] Wall_address,
+				output logic [13:0] Wall_address,
             output logic  is_Wall
 				);
 	// in this module we set Walls
@@ -49,11 +49,6 @@ module Map (
 		
 		
 		else if ((DrawY >= 10'd335) && (DrawY < 10'd385) && (3*DrawX+10'd250 < 5*DrawY) && (3*DrawX+10'd400 >5*DrawY))	//second platform
-		begin
-			is_Wall = 1'b1;
-		end
-		
-		else if ((DrawX >= 10'd525) && (DrawX < 10'd430) && (DrawY >= 10'd345) && (DrawY < 10'd355))	//block
 		begin
 			is_Wall = 1'b1;
 		end

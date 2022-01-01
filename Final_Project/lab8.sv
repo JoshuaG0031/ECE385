@@ -71,8 +71,11 @@ module lab8( input               CLOCK_50,
     logic hpi_r, hpi_w, hpi_cs, hpi_reset;
 	 
 	 logic [11:0] Fireboy_address,Watergirl_address;
+	 logic [8:0] Fire_pool_address, Water_pool_address, Swamp_address;
 	 logic [3:0] Fireboy_direction,Watergirl_direction;
+	 
 	 logic is_Fireboy, is_Watergirl, is_Wall;
+	 logic is_Fire_pool, is_Water_pool, is_Swamp;
 	 
 	 //fireboy is wall
 	 logic is_Wall_up,is_Wall_down,is_Wall_left,is_Wall_right;
@@ -161,6 +164,11 @@ module lab8( input               CLOCK_50,
 								.on_ground(debugger)
 								);
     
+	 pool pool(.DrawX(DrawX),.DrawY(DrawY),.Fire_pool_address(Fire_pool_address),.is_Fire_pool(is_Fire_pool)
+	 .Water_pool_address(Water_pool_address),.is_Water_pool(is_Water_pool),
+	 .Swamp_address(Swamp_address),.is_Swamp(is_Swamp)
+	 );
+	 
 	 Map Map(.DrawX(DrawX),.DrawY(DrawY),.Wall_address(Wall_address),.is_Wall(is_Wall));
 	 
     color_mapper color_instance(
@@ -174,7 +182,8 @@ module lab8( input               CLOCK_50,
                                 .DrawY(DrawY),
                                 .VGA_R(VGA_R),
                                 .VGA_G(VGA_G),
-                                .VGA_B(VGA_B)
+                                .VGA_B(VGA_B),
+										  .*
 										  );
 //    AudioController AC(.CLK(CLOCK_50),.Reset(~Reset_h),.FL_ADDR(FL_ADDR),.FL_DQ(FL_DQ),.FL_OE_N(FL_OE_N),.FL_WP_N(FL_WP_N),
 //							  .FL_RST_N(FL_RET_N),.FL_WE_N(FL_WE_N),.FL_CE_N(FL_CE_N),.AUD_DACLRCK(AUD_DACLRCK),.AUD_BCLK(AUD_BCLK),

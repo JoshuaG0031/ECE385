@@ -1,0 +1,8 @@
+module Pool (
+            input [9:0]   DrawX, DrawY,
+				output logic [13:0] Wall_address,
+            output logic  is_Wall
+				);
+	// in this module we set Fire_pool, Water_pool and Swamp
+	
+	
