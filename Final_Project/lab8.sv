@@ -59,8 +59,7 @@ module lab8( input               CLOCK_50,
 	 logic is_ball;
 	 logic [7:0] led;
     logic w_key, a_key, d_key, arrow_up, arrow_left, arrow_right;
-	 logic x_bias, y_bias;
-	 logic [3:0] debugger; 
+	 logic  debugger; 
     assign Clk = CLOCK_50;
     always_ff @ (posedge Clk) begin
         Reset_h <= ~(KEY[0]);        // The push buttons are active low
@@ -159,10 +158,10 @@ module lab8( input               CLOCK_50,
 								.Fireboy_address(Fireboy_address),
 								.Fireboy_direction(Fireboy_direction),
 								.is_Wall_up(is_Wall_up),.is_Wall_down(is_Wall_down),.is_Wall_left(is_Wall_left),.is_Wall_right(is_Wall_right),
-								.debugger(debugger)
+								.on_ground(debugger)
 								);
     
-	 Map Map(.DrawX(DrawX),.DrawY(DrawY),.Wall_address(Wall_address),.is_Wall(is_Wall),.x_bias(x_bias),.y_bias(y_bias));
+	 Map Map(.DrawX(DrawX),.DrawY(DrawY),.Wall_address(Wall_address),.is_Wall(is_Wall));
 	 
     color_mapper color_instance(
 										  .is_Fireboy(is_Fireboy),
@@ -191,7 +190,7 @@ module lab8( input               CLOCK_50,
 	 assign led[4]=is_Wall_right;
     HexDriver hex_inst_0 ({1'b0,w_key, a_key, d_key}, HEX6);
 	 HexDriver hex_inst_1 ({1'b0,arrow_up, arrow_left, arrow_right}, HEX7);
-	 HexDriver hex_inst_2 (debugger[3:0],HEX0);
+	 HexDriver hex_inst_2 (debugger,HEX0);
 //	 HexDriver hex_inst_1 (keycode[43:40], HEX6);
 //    HexDriver hex_inst_2 (keycode[47:44], HEX7);
 	 
